@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the CAP Theorem - OngeraCodex</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="../index.html">Home</a>
+                <a href="../system-architecture.html">System Architecture</a>
+                <a href="../distributed-systems.html">Distributed Systems</a>
+                <a href="../cybersecurity.html">Cybersecurity</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-section">
+            <div class="section-header">
+                <h1>Understanding the CAP Theorem</h1>
+                <div class="post-meta">
+                    <span class="post-date">$ date -I → 2024-08-20</span>
+                    <span class="post-category">Distributed Systems</span>
+                    <span class="read-time">8 min read</span>
+                </div>
+            </div>
+
+            <article class="blog-post">
+                <div class="terminal-prompt">
+                    <span class="prompt">$ cat cap-theorem-explained.md</span>
+                </div>
+                
+                <div class="post-content">
+                    <p class="post-intro">
+                        The CAP theorem, also known as Brewer's theorem, is one of the most fundamental concepts in 
+                        distributed systems. It states that any distributed system can provide at most two of the 
+                        following three guarantees: Consistency, Availability, and Partition tolerance.
+                    </p>
+
+                    <h2>The Three Guarantees</h2>
+                    
+                    <h3>Consistency (C)</h3>
+                    <p>
+                        Consistency means that all nodes in the distributed system see the same data at the same time. 
+                        When a write operation completes, all subsequent read operations must return the updated value, 
+                        regardless of which node serves the request.
+                    </p>
+                    <p>
+                        In practical terms, this means that if you update a user's profile on one server, that change 
+                        should be immediately visible when accessing the profile from any other server in the system.
+                    </p>
+
+                    <h3>Availability (A)</h3>
+                    <p>
+                        Availability guarantees that the system remains operational and responsive to requests. 
+                        Every request receives a response, without guarantee that it contains the most recent data. 
+                        The system continues to function even when some nodes fail.
+                    </p>
+
+                    <h3>Partition Tolerance (P)</h3>
+                    <p>
+                        Partition tolerance means the system continues to operate despite network failures that 
+                        split the system into multiple isolated groups of nodes. The system can handle communication 
+                        breakdowns between nodes and still function correctly.
+                    </p>
+
+                    <h2>The Trade-offs</h2>
+                    <p>
+                        Since network partitions are unavoidable in distributed systems, the practical choice 
+                        is usually between consistency and availability:
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Theory</span>
+                            <span class="code-file">cap-theorem.txt</span>
+                        </div>
+                        <pre><code>CP Systems: Consistency + Partition Tolerance
+- MongoDB (with strong consistency)
+- HBase
+- Redis Cluster
+
+AP Systems: Availability + Partition Tolerance  
+- Cassandra
+- DynamoDB
+- CouchDB</code></pre>
+                    </div>
+
+                    <h2>Real-World Applications</h2>
+                    <p>
+                        Understanding CAP theorem helps architects make informed decisions:
+                    </p>
+                    <ul>
+                        <li><strong>Financial systems:</strong> Often choose CP for data accuracy</li>
+                        <li><strong>Social media:</strong> Typically choose AP for user experience</li>
+                        <li><strong>E-commerce:</strong> May use different strategies for different data types</li>
+                    </ul>
+
+                    <h2>Beyond CAP: PACELC Theorem</h2>
+                    <p>
+                        The PACELC theorem extends CAP by addressing system behavior during normal operation. 
+                        It states that in case of network partitioning (P), one has to choose between availability (A) 
+                        and consistency (C), but else (E), even when the system is running normally, one has to choose 
+                        between latency (L) and consistency (C).
+                    </p>
+
+                    <div class="terminal-output">
+                        <div class="terminal-header">
+                            <span>$ analyze_system --cap-classification</span>
+                        </div>
+                        <div class="output">
+System: MongoDB
+Classification: CP (Consistency + Partition Tolerance)
+Trade-off: May become unavailable during network partitions
+Use case: Financial transactions, inventory management
+                        </div>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        The CAP theorem provides a valuable framework for understanding the fundamental 
+                        trade-offs in distributed systems. While it presents constraints, understanding 
+                        these limitations helps architects make informed decisions about system design 
+                        and choose appropriate technologies for their specific use cases.
+                    </p>
+                </div>
+
+                <div class="post-tags">
+                    <h4>Tags:</h4>
+                    <span class="tag">distributed-systems</span>
+                    <span class="tag">cap-theorem</span>
+                    <span class="tag">consistency</span>
+                    <span class="tag">availability</span>
+                </div>
+
+                <div class="related-posts">
+                    <h3>Related Posts</h3>
+                    <ul class="related-links">
+                        <li><a href="load-balancing-strategies.html">Load Balancing Strategies for Distributed Systems</a></li>
+                        <li><a href="../system-architecture.html">Understanding Microservices Architecture</a></li>
+                        <li><a href="eventual-consistency.html">Eventual Consistency in Distributed Systems</a></li>
+                    </ul>
+                </div>
+
+                <div class="post-navigation">
+                    <a href="../distributed-systems.html" class="nav-link prev">← Back to Distributed Systems</a>
+                    <a href="load-balancing-strategies.html" class="nav-link next">Next: Load Balancing Strategies →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../projects.html">Projects</a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 OngeraCodex. All rights reserved.</p>
+                <p>Built with passion for system architecture and cybersecurity.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a nav link
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

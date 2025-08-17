@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load Balancing Strategies for Distributed Systems - OngeraCodex</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="../index.html">Home</a>
+                <a href="../system-architecture.html">System Architecture</a>
+                <a href="../distributed-systems.html">Distributed Systems</a>
+                <a href="../cybersecurity.html">Cybersecurity</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-section">
+            <div class="section-header">
+                <h1>Load Balancing Strategies for Distributed Systems</h1>
+                <div class="post-meta">
+                    <span class="post-date">$ date -I → 2024-08-18</span>
+                    <span class="post-category">Distributed Systems</span>
+                    <span class="read-time">6 min read</span>
+                </div>
+            </div>
+
+            <article class="blog-post">
+                <div class="terminal-prompt">
+                    <span class="prompt">$ cat load-balancing-strategies.md</span>
+                </div>
+                
+                <div class="post-content">
+                    <p class="post-intro">
+                        Load balancing is crucial for distributing incoming requests across multiple servers to ensure 
+                        optimal resource utilization, minimize response time, and avoid overload on any single server. 
+                        Let's explore different load balancing algorithms and their trade-offs.
+                    </p>
+
+                    <h2>Round Robin</h2>
+                    <p>
+                        The simplest load balancing algorithm that distributes requests sequentially across all available servers. 
+                        Each server gets an equal share of requests over time.
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-file">round_robin.py</span>
+                        </div>
+                        <pre><code>class RoundRobinBalancer:
+    def __init__(self, servers):
+        self.servers = servers
+        self.current = 0
+    
+    def get_server(self):
+        server = self.servers[self.current]
+        self.current = (self.current + 1) % len(self.servers)
+        return server</code></pre>
+                    </div>
+
+                    <h2>Weighted Round Robin</h2>
+                    <p>
+                        Assigns different weights to servers based on their capacity. Servers with higher weights 
+                        receive more requests proportionally.
+                    </p>
+
+                    <h2>Least Connections</h2>
+                    <p>
+                        Routes requests to the server with the fewest active connections. This is effective when 
+                        requests have varying processing times.
+                    </p>
+
+                    <div class="terminal-output">
+                        <div class="terminal-header">
+                            <span>$ nginx -t && nginx -s reload</span>
+                        </div>
+                        <div class="output">
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+                        </div>
+                    </div>
+
+                    <h2>Consistent Hashing</h2>
+                    <p>
+                        Uses a hash function to map requests to servers. This ensures that the same request 
+                        always goes to the same server, which is useful for session affinity and caching.
+                    </p>
+
+                    <h2>Geographic Load Balancing</h2>
+                    <p>
+                        Routes requests based on the geographic location of the client to the nearest server, 
+                        reducing latency and improving user experience.
+                    </p>
+
+                    <h2>Health Checks and Failover</h2>
+                    <p>
+                        Modern load balancers continuously monitor server health and automatically remove 
+                        unhealthy servers from the rotation, ensuring high availability.
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">YAML</span>
+                            <span class="code-file">nginx-config.yml</span>
+                        </div>
+                        <pre><code>upstream backend {
+    least_conn;
+    server backend1.example.com weight=3;
+    server backend2.example.com weight=2;
+    server backend3.example.com backup;
+}</code></pre>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        Choosing the right load balancing strategy depends on your specific requirements: 
+                        request patterns, server capacities, session requirements, and geographic distribution. 
+                        Many modern systems combine multiple strategies for optimal performance.
+                    </p>
+                </div>
+
+                <div class="post-tags">
+                    <h4>Tags:</h4>
+                    <span class="tag">load-balancing</span>
+                    <span class="tag">distributed-systems</span>
+                    <span class="tag">scalability</span>
+                    <span class="tag">nginx</span>
+                </div>
+
+                <div class="related-posts">
+                    <h3>Related Posts</h3>
+                    <ul class="related-links">
+                        <li><a href="cap-theorem-explained.html">Understanding the CAP Theorem</a></li>
+                        <li><a href="../system-architecture.html">Understanding Microservices Architecture</a></li>
+                        <li><a href="service-discovery.html">Service Discovery in Microservices</a></li>
+                    </ul>
+                </div>
+
+                <div class="post-navigation">
+                    <a href="cap-theorem-explained.html" class="nav-link prev">← Previous: CAP Theorem Explained</a>
+                    <a href="../distributed-systems.html" class="nav-link next">Back to Distributed Systems →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../projects.html">Projects</a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 OngeraCodex. All rights reserved.</p>
+                <p>Built with passion for system architecture and cybersecurity.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

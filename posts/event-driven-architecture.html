@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Driven Architecture Patterns - OngeraCodex</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="../index.html">Home</a>
+                <a href="../system-architecture.html">System Architecture</a>
+                <a href="../distributed-systems.html">Distributed Systems</a>
+                <a href="../cybersecurity.html">Cybersecurity</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-section">
+            <div class="section-header">
+                <h1>Event-Driven Architecture Patterns</h1>
+                <div class="post-meta">
+                    <span class="post-date">$ date -I → 2024-08-15</span>
+                    <span class="post-category">Architecture Patterns</span>
+                    <span class="read-time">4 min read</span>
+                </div>
+            </div>
+
+            <article class="blog-post">
+                <div class="terminal-prompt">
+                    <span class="prompt">$ cat event-driven-architecture.md</span>
+                </div>
+                
+                <div class="post-content">
+                    <p class="post-intro">
+                        Event-driven architecture enables loose coupling and scalability in distributed systems by 
+                        allowing components to communicate through events rather than direct calls. This approach 
+                        promotes flexibility and resilience in modern applications.
+                    </p>
+
+                    <h2>Core Concepts</h2>
+                    <p>
+                        In event-driven architecture, components communicate by producing and consuming events. 
+                        An event represents something that happened in the system, like "OrderPlaced" or "UserRegistered".
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-file">event-example.js</span>
+                        </div>
+                        <pre><code>// Event structure
+const orderPlacedEvent = {
+  eventId: 'uuid-123',
+  eventType: 'OrderPlaced',
+  timestamp: '2024-08-15T10:30:00Z',
+  data: {
+    orderId: 'order-456',
+    customerId: 'customer-789',
+    items: [
+      { productId: 'prod-1', quantity: 2, price: 29.99 }
+    ],
+    totalAmount: 59.98
+  }
+};</code></pre>
+                    </div>
+
+                    <h2>Event Sourcing Pattern</h2>
+                    <p>
+                        Event sourcing stores all changes to application state as a sequence of events. Instead of 
+                        storing current state, you store the events that led to that state.
+                    </p>
+
+                    <div class="terminal-output">
+                        <div class="terminal-header">
+                            <span>$ event-store query --aggregate-id order-456</span>
+                        </div>
+                        <div class="output">
+Events for Order 456:
+1. OrderCreated    (2024-08-15 10:30:00)
+2. ItemAdded       (2024-08-15 10:30:15)
+3. ItemAdded       (2024-08-15 10:30:20)
+4. OrderConfirmed  (2024-08-15 10:31:00)
+5. PaymentProcessed (2024-08-15 10:31:30)
+                        </div>
+                    </div>
+
+                    <h2>CQRS (Command Query Responsibility Segregation)</h2>
+                    <p>
+                        CQRS separates read and write operations, often used alongside event sourcing. Commands change 
+                        state and produce events, while queries read from optimized read models.
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-file">cqrs-example.py</span>
+                        </div>
+                        <pre><code>class OrderCommandHandler:
+    def handle_place_order(self, command):
+        # Validate command
+        order = Order.create(command.customer_id, command.items)
+        
+        # Store events
+        events = order.get_uncommitted_events()
+        self.event_store.save_events(order.id, events)
+        
+        # Publish events
+        for event in events:
+            self.event_bus.publish(event)
+
+class OrderQueryHandler:
+    def get_order_summary(self, order_id):
+        # Read from optimized read model
+        return self.read_model.get_order_summary(order_id)</code></pre>
+                    </div>
+
+                    <h2>Saga Pattern</h2>
+                    <p>
+                        Sagas manage long-running transactions across multiple services by coordinating a series of 
+                        local transactions. If one step fails, compensating actions are executed.
+                    </p>
+
+                    <h2>Benefits of Event-Driven Architecture</h2>
+                    <ul>
+                        <li><strong>Loose Coupling:</strong> Services don't need to know about each other directly</li>
+                        <li><strong>Scalability:</strong> Components can scale independently</li>
+                        <li><strong>Resilience:</strong> System continues to work even if some components fail</li>
+                        <li><strong>Auditability:</strong> Complete history of what happened in the system</li>
+                        <li><strong>Flexibility:</strong> Easy to add new features without changing existing code</li>
+                    </ul>
+
+                    <h2>Challenges and Considerations</h2>
+                    <ul>
+                        <li><strong>Eventual Consistency:</strong> Data may not be immediately consistent across services</li>
+                        <li><strong>Event Ordering:</strong> Ensuring events are processed in the correct order</li>
+                        <li><strong>Debugging:</strong> Tracing issues across multiple asynchronous components</li>
+                        <li><strong>Event Schema Evolution:</strong> Managing changes to event structure over time</li>
+                    </ul>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">YAML</span>
+                            <span class="code-file">kafka-config.yml</span>
+                        </div>
+                        <pre><code>apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: order-events
+spec:
+  partitions: 3
+  replicas: 3
+  config:
+    retention.ms: 604800000  # 7 days
+    cleanup.policy: compact
+    min.insync.replicas: 2</code></pre>
+                    </div>
+
+                    <h2>Implementation Technologies</h2>
+                    <p>
+                        Popular technologies for implementing event-driven architectures include:
+                    </p>
+                    <ul>
+                        <li><strong>Message Brokers:</strong> Apache Kafka, RabbitMQ, Amazon SQS</li>
+                        <li><strong>Event Stores:</strong> EventStore, Apache Pulsar</li>
+                        <li><strong>Stream Processing:</strong> Apache Kafka Streams, Apache Flink</li>
+                        <li><strong>Cloud Services:</strong> AWS EventBridge, Azure Event Grid</li>
+                    </ul>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        Event-driven architecture patterns like Event Sourcing, CQRS, and Saga provide powerful tools 
+                        for building scalable, resilient distributed systems. While they introduce complexity, the 
+                        benefits of loose coupling and auditability make them valuable for many applications.
+                    </p>
+                </div>
+
+                <div class="post-tags">
+                    <h4>Tags:</h4>
+                    <span class="tag">event-driven</span>
+                    <span class="tag">architecture-patterns</span>
+                    <span class="tag">cqrs</span>
+                    <span class="tag">event-sourcing</span>
+                </div>
+
+                <div class="related-posts">
+                    <h3>Related Posts</h3>
+                    <ul class="related-links">
+                        <li><a href="microservices-architecture.html">Understanding Microservices Architecture</a></li>
+                        <li><a href="../distributed-systems.html">Distributed Systems Fundamentals</a></li>
+                        <li><a href="api-gateway-patterns.html">API Gateway Design Patterns</a></li>
+                    </ul>
+                </div>
+
+                <div class="post-navigation">
+                    <a href="microservices-architecture.html" class="nav-link prev">← Previous: Microservices Architecture</a>
+                    <a href="../system-architecture.html" class="nav-link next">Back to System Architecture →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../projects.html">Projects</a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 OngeraCodex. All rights reserved.</p>
+                <p>Built with passion for system architecture and cybersecurity.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

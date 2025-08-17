@@ -119,14 +119,57 @@
                 writing helps me crystallize my understanding of various concepts.
             </p>
             <p>
-                My goal is to make complex technical topics accessible to developers at all levels. Whether you're 
-                just starting your journey in distributed systems or you're a seasoned architect looking for new 
-                perspectives, I hope you'll find value in the content I share.
+                My goal is to cement my understanding of the topics I write about and share my insights with 
+                the tech community.
             </p>
             <p>
                 Each article is written with practical applications in mind, drawing from real-world scenarios 
                 and challenges I've encountered in my professional journey.
             </p>
+        </section>
+
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Coding Activity</h2>
+            </div>
+            <p class="stats-description">
+                Here's a glimpse into my development patterns and the technologies I work with most frequently.
+            </p>
+            
+            <div class="stats-carousel">
+                <div class="stats-carousel-header">
+                    <span>$ wakatime --stats --display</span>
+                </div>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <a href="https://wakatime.com" target="_blank" rel="noopener noreferrer">
+                                <img src="https://wakatime.com/share/@50b41ddf-bd05-4abf-9a01-63eeb1138150/425dc632-58c9-47eb-9bb5-a0cd4bf76294.png" 
+                                     alt="WakaTime Coding Statistics - Languages and Time Tracking" />
+                            </a>
+                        </div>
+                        <div class="carousel-slide">
+                            <a href="https://wakatime.com" target="_blank" rel="noopener noreferrer">
+                                <img src="https://wakatime.com/share/@50b41ddf-bd05-4abf-9a01-63eeb1138150/39347f53-59c4-4eaf-aa49-4ac8bb4408ee.png" 
+                                     alt="WakaTime Coding Statistics - Project Activity and Patterns" />
+                            </a>
+                        </div>
+                        <div class="carousel-slide">
+                            <a href="https://wakatime.com" target="_blank" rel="noopener noreferrer">
+                                <img src="https://wakatime.com/share/@50b41ddf-bd05-4abf-9a01-63eeb1138150/c6c3b982-3b0f-4aef-ba67-d29ace172bb2.png" 
+                                     alt="WakaTime Coding Statistics - Additional Metrics" />
+                            </a>
+                        </div>
+                    </div>
+                    <button class="carousel-nav prev" id="prevBtn" aria-label="Previous stat">‹</button>
+                    <button class="carousel-nav next" id="nextBtn" aria-label="Next stat">›</button>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" data-slide="0"></div>
+                    <div class="carousel-indicator" data-slide="1"></div>
+                    <div class="carousel-indicator" data-slide="2"></div>
+                </div>
+            </div>
         </section>
 
         <section class="content-section">
@@ -187,6 +230,58 @@
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
                     }
+                });
+            }
+
+            // WakaTime Carousel functionality
+            const carouselTrack = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            if (carouselTrack && prevBtn && nextBtn) {
+                let currentSlide = 0;
+                const totalSlides = 3;
+                
+                function updateCarousel() {
+                    const translateX = -currentSlide * 100;
+                    carouselTrack.style.transform = `translateX(${translateX}%)`;
+                    
+                    // Update indicators
+                    indicators.forEach((indicator, index) => {
+                        indicator.classList.toggle('active', index === currentSlide);
+                    });
+                }
+                
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateCarousel();
+                }
+                
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateCarousel();
+                }
+                
+                // Event listeners
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+                
+                // Indicator clicks
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentSlide = index;
+                        updateCarousel();
+                    });
+                });
+                
+                // Auto-advance carousel every 5 seconds
+                setInterval(nextSlide, 5000);
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') prevSlide();
+                    if (e.key === 'ArrowRight') nextSlide();
                 });
             }
         });
