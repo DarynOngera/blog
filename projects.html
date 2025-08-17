@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Daryn Ongera</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Daryn Ongera</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="system-architecture.html">System Architecture</a>
+                <a href="cybersecurity.html">Cybersecurity</a>
+                <a href="distributed-systems.html">Distributed Systems</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-section">
+            <div class="section-header">
+                <h1>My Projects</h1>
+                <p>A showcase of technical projects demonstrating expertise in system architecture, distributed systems, and cybersecurity.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Featured Project -->
+                <div class="project-item featured">
+                    <div class="project-header">
+                        <h2>Distributed Task Scheduler</h2>
+                        <div class="project-meta">
+                            <span class="project-tag">Distributed Systems</span>
+                            <span class="project-tag">Go</span>
+                            <span class="project-tag">Redis</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A high-performance distributed task scheduling system built with Go and Redis. Implements consistent hashing for load distribution, 
+                        fault tolerance with leader election, and horizontal scaling capabilities. Handles 10K+ tasks per second with sub-millisecond latency.
+                    </p>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Consistent hashing for optimal load distribution</li>
+                            <li>Raft consensus algorithm for leader election</li>
+                            <li>Circuit breaker pattern for fault tolerance</li>
+                            <li>Real-time monitoring with Prometheus metrics</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">Documentation</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Zero Trust Network Gateway</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Cybersecurity</span>
+                            <span class="project-tag">Rust</span>
+                            <span class="project-tag">mTLS</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Implementation of a Zero Trust network gateway using Rust. Features mutual TLS authentication, 
+                        policy-based access control, and real-time threat detection with machine learning models.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">Technical Blog</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Microservices Orchestrator</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">System Architecture</span>
+                            <span class="project-tag">Kubernetes</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Custom Kubernetes operator for managing complex microservices deployments. Automates service discovery, 
+                        load balancing, and rolling updates with zero-downtime deployment strategies.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">Helm Charts</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Event-Driven Analytics Platform</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Data Engineering</span>
+                            <span class="project-tag">Apache Kafka</span>
+                            <span class="project-tag">Python</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Real-time analytics platform processing millions of events per day. Built with Apache Kafka, 
+                        Apache Spark, and ClickHouse for sub-second query performance on time-series data.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">Architecture Diagram</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Blockchain Consensus Simulator</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Blockchain</span>
+                            <span class="project-tag">TypeScript</span>
+                            <span class="project-tag">WebGL</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Interactive visualization of various blockchain consensus algorithms including PoW, PoS, and PBFT. 
+                        Built with TypeScript and WebGL for real-time network simulation and performance comparison.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">Live Demo</a>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>Container Security Scanner</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">DevSecOps</span>
+                            <span class="project-tag">Go</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Automated security scanning tool for container images. Detects vulnerabilities, misconfigurations, 
+                        and compliance violations with integration into CI/CD pipelines.
+                    </p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Code</a>
+                        <a href="#" class="project-link">CLI Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Skills Section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Technical Stack</h2>
+                </div>
+                <div class="tech-stack">
+                    <div class="tech-category">
+                        <h4>Languages</h4>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Rust</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">C++</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h4>Infrastructure</h4>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Terraform</span>
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">GCP</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                    <div class="tech-category">
+                        <h4>Data & Messaging</h4>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Apache Kafka</span>
+                            <span class="tech-tag">Apache Spark</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">ClickHouse</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2024 Daryn Ongera. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

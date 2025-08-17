@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ongera.github.io/blog/sitemap.xml

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed Systems - Daryn Ongera</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Daryn Ongera</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="system-architecture.html">System Architecture</a>
+                <a href="cybersecurity.html">Cybersecurity</a>
+                <a href="distributed-systems.html" class="active">Distributed Systems</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="section-header">
+                <h1>Understanding the CAP Theorem</h1>
+            </div>
+            
+            <div class="article-meta">
+                <span class="article-tag">Distributed Systems</span>
+                <span>•</span>
+                <span>6 min read</span>
+                <span>•</span>
+                <span>August 17, 2025</span>
+            </div>
+            
+            <p>
+                The CAP theorem, also known as Brewer's theorem, is one of the most fundamental concepts in 
+                distributed systems. It states that any distributed system can provide at most two of the 
+                following three guarantees: Consistency, Availability, and Partition tolerance.
+            </p>
+            
+            <h2>The Three Guarantees</h2>
+            
+            <h3>Consistency (C)</h3>
+            <p>
+                Consistency means that all nodes in the distributed system see the same data at the same time. 
+                When a write operation completes, all subsequent read operations must return the updated value, 
+                regardless of which node serves the request.
+            </p>
+            <p>
+                In practical terms, this means that if you update a user's profile on one server, that change 
+                should be immediately visible when accessing the profile from any other server in the system.
+            </p>
+            
+            <h3>Availability (A)</h3>
+            <p>
+                Availability guarantees that the system remains operational and responsive to requests. 
+                Every request receives a response, without guarantee that it contains the most recent data. 
+                The system continues to function even when some nodes fail.
+            </p>
+            <p>
+                A highly available system ensures that users can always interact with the application, 
+                even during server failures or network issues, though they might occasionally see stale data.
+            </p>
+            
+            <h3>Partition Tolerance (P)</h3>
+            <p>
+                Partition tolerance means the system continues to operate despite network failures that 
+                split the system into multiple isolated groups of nodes. The system can handle communication 
+                breakdowns between nodes and still function correctly.
+            </p>
+            <p>
+                In real-world distributed systems, network partitions are inevitable due to hardware failures, 
+                network congestion, or configuration errors. Therefore, partition tolerance is typically 
+                considered a requirement rather than an option.
+            </p>
+            
+            <h2>The Trade-offs</h2>
+            <p>
+                Since network partitions are unavoidable in distributed systems, the practical choice 
+                is usually between consistency and availability:
+            </p>
+            
+            <h3>CP Systems (Consistency + Partition Tolerance)</h3>
+            <p>
+                CP systems prioritize consistency over availability. When a network partition occurs, 
+                the system may become unavailable to maintain data consistency across all nodes.
+            </p>
+            <p><strong>Examples:</strong></p>
+            <ul>
+                <li><strong>MongoDB:</strong> Can be configured for strong consistency</li>
+                <li><strong>HBase:</strong> Provides strong consistency guarantees</li>
+                <li><strong>Redis Cluster:</strong> Maintains consistency during partitions</li>
+            </ul>
+            
+            <h3>AP Systems (Availability + Partition Tolerance)</h3>
+            <p>
+                AP systems prioritize availability over consistency. The system remains operational 
+                during network partitions but may serve stale or inconsistent data.
+            </p>
+            <p><strong>Examples:</strong></p>
+            <ul>
+                <li><strong>Cassandra:</strong> Highly available with eventual consistency</li>
+                <li><strong>DynamoDB:</strong> Designed for high availability</li>
+                <li><strong>CouchDB:</strong> Focuses on availability and eventual consistency</li>
+            </ul>
+            
+            <h2>Beyond CAP: Practical Considerations</h2>
+            
+            <h3>Eventual Consistency</h3>
+            <p>
+                Many modern distributed systems implement eventual consistency, where the system 
+                will become consistent over time, once network partitions are resolved and all 
+                updates have propagated.
+            </p>
+            
+            <h3>Tunable Consistency</h3>
+            <p>
+                Some systems allow you to tune consistency levels per operation. For example, 
+                Cassandra allows you to specify consistency levels like ONE, QUORUM, or ALL 
+                for individual read and write operations.
+            </p>
+            
+            <h3>PACELC Theorem</h3>
+            <p>
+                The PACELC theorem extends CAP by addressing system behavior during normal operation 
+                (when there are no partitions). It states that in case of network partitioning (P), 
+                one has to choose between availability (A) and consistency (C), but else (E), 
+                even when the system is running normally, one has to choose between latency (L) and consistency (C).
+            </p>
+            
+            <h2>Design Implications</h2>
+            
+            <h3>Choose Based on Requirements</h3>
+            <ul>
+                <li><strong>Financial systems:</strong> Often choose CP for data accuracy</li>
+                <li><strong>Social media:</strong> Typically choose AP for user experience</li>
+                <li><strong>E-commerce:</strong> May use different strategies for different data types</li>
+            </ul>
+            
+            <h3>Hybrid Approaches</h3>
+            <p>
+                Many real-world systems use hybrid approaches, applying different consistency models 
+                to different types of data based on business requirements. Critical data might use 
+                strong consistency while less critical data uses eventual consistency.
+            </p>
+            
+            <h2>Best Practices</h2>
+            <ul>
+                <li>Understand your application's consistency requirements</li>
+                <li>Design for partition tolerance from the beginning</li>
+                <li>Consider using different consistency models for different data types</li>
+                <li>Implement monitoring to detect and handle network partitions</li>
+                <li>Test your system's behavior during various failure scenarios</li>
+                <li>Document your consistency guarantees for other developers</li>
+            </ul>
+            
+            <p>
+                The CAP theorem provides a valuable framework for understanding the fundamental 
+                trade-offs in distributed systems. While it presents constraints, understanding 
+                these limitations helps architects make informed decisions about system design 
+                and choose appropriate technologies for their specific use cases.
+            </p>
+        </section>
+        
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Related Articles</h2>
+            </div>
+            <div class="article-list">
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">System Design</span>
+                        <span>•</span>
+                        <span>5 min read</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="system-architecture.html">Understanding Microservices Architecture</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Learn how CAP theorem considerations apply to microservices design 
+                        and how to handle consistency across service boundaries.
+                    </p>
+                    <a href="system-architecture.html" class="read-more">Read full article</a>
+                </article>
+                
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">Security</span>
+                        <span>•</span>
+                        <span>7 min read</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="cybersecurity.html">Exploring Zero Trust Architecture</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Discover how security considerations intersect with distributed system 
+                        design and the importance of securing distributed architectures.
+                    </p>
+                    <a href="cybersecurity.html" class="read-more">Read full article</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sitemap.xml">Sitemap</a>
+            </div>
+            <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
