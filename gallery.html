@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - OngeraCodex</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="system-architecture.html">System Architecture</a>
+                <a href="distributed-systems.html">Distributed Systems</a>
+                <a href="cybersecurity.html">Cybersecurity</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="section-header">
+                <h1>Gallery</h1>
+                <p>A visual journey through my experiences, projects, and moments worth capturing.</p>
+            </div>
+            
+            <div class="gallery-carousel">
+                <div class="stats-carousel-header">
+                    <span>$ ls -la ~/gallery/</span>
+                </div>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="galleryCarouselTrack">
+                        <div class="carousel-slide">
+                            <div class="gallery-item">
+                                <img src="images/action.jpeg" alt="Back in the day" />
+                                <div class="gallery-caption">
+                                    <h3>In action</h3>
+                                    <p>Ongera in action outside tech.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="gallery-item">
+                                <img src="images/daryn2.jpeg" alt="Impact Africa Hackathon" />
+                                <div class="gallery-caption">
+                                    <h3>Impact Africa Hackathon</h3>
+                                    <p>Mad man (far right) sharing his ideas. Where TutorMtaani was born.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="gallery-item">
+                                <img src="images/champion.jpeg" alt="Pesalink-Strathmore Fintech Hackathon" />
+                                <div class="gallery-caption">
+                                    <h3>Pesalink-Strathmore Fintech Hackathon</h3>
+                                    <p>Champions of the Pesalink-Strathmore Fintech Hackathon. 40k bagged</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="gallery-item">
+                                <img src="images/daryn3.jpeg" alt="Project Demo" />
+                                <div class="gallery-caption">
+                                    <h3>Sports Day</h3>
+                                    <p>Participating (winning) in the annual sports day at Strathmore University.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-nav prev" id="galleryPrevBtn" aria-label="Previous image">‹</button>
+                    <button class="carousel-nav next" id="galleryNextBtn" aria-label="Next image">›</button>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" data-slide="0"></div>
+                    <div class="carousel-indicator" data-slide="1"></div>
+                    <div class="carousel-indicator" data-slide="2"></div>
+                    <div class="carousel-indicator" data-slide="3"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Behind the Scenes</h2>
+            </div>
+            <p>
+                These images capture moments from my journey as a software engineer and system architect. 
+                From late-night debugging sessions to conference presentations, each photo tells a story 
+                of continuous learning and growth in the tech industry.
+            </p>
+            <p>
+                I believe in documenting the process, not just the results. Whether it's sketching out 
+                system designs on whiteboards or celebrating successful deployments with the team, 
+                these moments shape who we are as technologists.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sitemap.xml">Sitemap</a>
+            </div>
+            <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+
+            // Gallery Carousel functionality
+            const carouselTrack = document.getElementById('galleryCarouselTrack');
+            const prevBtn = document.getElementById('galleryPrevBtn');
+            const nextBtn = document.getElementById('galleryNextBtn');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            if (carouselTrack && prevBtn && nextBtn) {
+                let currentSlide = 0;
+                const totalSlides = 4;
+                
+                function updateCarousel() {
+                    const translateX = -currentSlide * 100;
+                    carouselTrack.style.transform = `translateX(${translateX}%)`;
+                    
+                    indicators.forEach((indicator, index) => {
+                        indicator.classList.toggle('active', index === currentSlide);
+                    });
+                }
+                
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateCarousel();
+                }
+                
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateCarousel();
+                }
+                
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+                
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentSlide = index;
+                        updateCarousel();
+                    });
+                });
+                
+                // Auto-advance every 6 seconds
+                setInterval(nextSlide, 6000);
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') prevSlide();
+                    if (e.key === 'ArrowRight') nextSlide();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
