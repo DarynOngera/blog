@@ -92,7 +92,7 @@
                 </div>
                 
                 <div class="download-actions">
-                    <a href="assets/Daryn_Ongera_CV.pdf" download="Daryn_Ongera_CV.pdf" class="cv-download-btn">
+                    <a href="assets/Daryn_Ongera_CV.pdf" download="Daryn_Ongera_CV.pdf" class="cv-download-btn" onclick="showDownloadMessage()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                         </svg>
@@ -101,6 +101,10 @@
                     <p class="download-note">
                         Complete resume with technical skills, project experience, and professional background.
                     </p>
+                </div>
+                
+                <div id="download-notification" class="download-notification">
+                    <span class="notification-text">CV downloaded successfully</span>
                 </div>
             </div>
         </section>
@@ -147,6 +151,16 @@
                 });
             }
         });
+        
+        // CV download notification
+        function showDownloadMessage() {
+            const notification = document.getElementById('download-notification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
     </script>
 </body>
 </html>
