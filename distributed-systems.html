@@ -78,147 +78,72 @@
                         <span>•</span>
                         <span>7 min read</span>
                         <span>•</span>
-                        <span>August 9, 2025</span>
+                        <span>August 10, 2025</span>
                     </div>
                     <h2 class="article-title">
-                        <a href="posts/distributed-caching.html">Building Distributed Cache Systems</a>
+                        <a href="posts/microservices-patterns.html">Microservices Design Patterns</a>
                     </h2>
                     <p class="article-excerpt">
-                        Master the art of distributed caching with consistent hashing, cache coherence protocols, 
-                        and strategies for handling hot keys and cache stampedes in high-traffic systems.
+                        Explore essential microservices patterns including service discovery, circuit breakers, 
+                        and event sourcing. Learn when and how to apply these patterns in your distributed architecture.
+                    </p>
+                    <a href="posts/microservices-patterns.html" class="read-more">Read More</a>
+                </article>
+                
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">Performance</span>
+                        <span>•</span>
+                        <span>5 min read</span>
+                        <span>•</span>
+                        <span>August 7, 2025</span>
+                    </div>
+                    <h2 class="article-title">
+                        <a href="posts/distributed-caching.html">Distributed Caching Strategies</a>
+                    </h2>
+                    <p class="article-excerpt">
+                        Master distributed caching with Redis and Memcached. Learn about cache invalidation, 
+                        consistency models, and how to design cache-friendly architectures.
                     </p>
                     <a href="posts/distributed-caching.html" class="read-more">Read More</a>
                 </article>
+
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">Data Consistency</span>
+                        <span>•</span>
+                        <span>9 min read</span>
+                        <span>•</span>
+                        <span>August 4, 2025</span>
+                    </div>
+                    <h2 class="article-title">
+                        <a href="posts/eventual-consistency.html">Eventual Consistency in Practice</a>
+                    </h2>
+                    <p class="article-excerpt">
+                        Understanding eventual consistency models and their implementation in real-world systems. 
+                        Learn about conflict resolution, vector clocks, and designing for eventual consistency.
+                    </p>
+                    <a href="posts/eventual-consistency.html" class="read-more">Read More</a>
+                </article>
+
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">Load Balancing</span>
+                        <span>•</span>
+                        <span>6 min read</span>
+                        <span>•</span>
+                        <span>August 1, 2025</span>
+                    </div>
+                    <h2 class="article-title">
+                        <a href="posts/load-balancing-strategies.html">Load Balancing Strategies for Distributed Systems</a>
+                    </h2>
+                    <p class="article-excerpt">
+                        Explore different load balancing algorithms and their trade-offs. From round-robin to consistent hashing, 
+                        learn how to distribute traffic effectively across your distributed infrastructure.
+                    </p>
+                    <a href="posts/load-balancing-strategies.html" class="read-more">Read More</a>
+                </article>
             </div>
-            
-            <p>
-                The CAP theorem, also known as Brewer's theorem, is one of the most fundamental concepts in 
-                distributed systems. It states that any distributed system can provide at most two of the 
-                following three guarantees: Consistency, Availability, and Partition tolerance.
-            </p>
-            
-            <h2>The Three Guarantees</h2>
-            
-            <h3>Consistency (C)</h3>
-            <p>
-                Consistency means that all nodes in the distributed system see the same data at the same time. 
-                When a write operation completes, all subsequent read operations must return the updated value, 
-                regardless of which node serves the request.
-            </p>
-            <p>
-                In practical terms, this means that if you update a user's profile on one server, that change 
-                should be immediately visible when accessing the profile from any other server in the system.
-            </p>
-            
-            <h3>Availability (A)</h3>
-            <p>
-                Availability guarantees that the system remains operational and responsive to requests. 
-                Every request receives a response, without guarantee that it contains the most recent data. 
-                The system continues to function even when some nodes fail.
-            </p>
-            <p>
-                A highly available system ensures that users can always interact with the application, 
-                even during server failures or network issues, though they might occasionally see stale data.
-            </p>
-            
-            <h3>Partition Tolerance (P)</h3>
-            <p>
-                Partition tolerance means the system continues to operate despite network failures that 
-                split the system into multiple isolated groups of nodes. The system can handle communication 
-                breakdowns between nodes and still function correctly.
-            </p>
-            <p>
-                In real-world distributed systems, network partitions are inevitable due to hardware failures, 
-                network congestion, or configuration errors. Therefore, partition tolerance is typically 
-                considered a requirement rather than an option.
-            </p>
-            
-            <h2>The Trade-offs</h2>
-            <p>
-                Since network partitions are unavoidable in distributed systems, the practical choice 
-                is usually between consistency and availability:
-            </p>
-            
-            <h3>CP Systems (Consistency + Partition Tolerance)</h3>
-            <p>
-                CP systems prioritize consistency over availability. When a network partition occurs, 
-                the system may become unavailable to maintain data consistency across all nodes.
-            </p>
-            <p><strong>Examples:</strong></p>
-            <ul>
-                <li><strong>MongoDB:</strong> Can be configured for strong consistency</li>
-                <li><strong>HBase:</strong> Provides strong consistency guarantees</li>
-                <li><strong>Redis Cluster:</strong> Maintains consistency during partitions</li>
-            </ul>
-            
-            <h3>AP Systems (Availability + Partition Tolerance)</h3>
-            <p>
-                AP systems prioritize availability over consistency. The system remains operational 
-                during network partitions but may serve stale or inconsistent data.
-            </p>
-            <p><strong>Examples:</strong></p>
-            <ul>
-                <li><strong>Cassandra:</strong> Highly available with eventual consistency</li>
-                <li><strong>DynamoDB:</strong> Designed for high availability</li>
-                <li><strong>CouchDB:</strong> Focuses on availability and eventual consistency</li>
-            </ul>
-            
-            <h2>Beyond CAP: Practical Considerations</h2>
-            
-            <h3>Eventual Consistency</h3>
-            <p>
-                Many modern distributed systems implement eventual consistency, where the system 
-                will become consistent over time, once network partitions are resolved and all 
-                updates have propagated.
-            </p>
-            
-            <h3>Tunable Consistency</h3>
-            <p>
-                Some systems allow you to tune consistency levels per operation. For example, 
-                Cassandra allows you to specify consistency levels like ONE, QUORUM, or ALL 
-                for individual read and write operations.
-            </p>
-            
-            <h3>PACELC Theorem</h3>
-            <p>
-                The PACELC theorem extends CAP by addressing system behavior during normal operation 
-                (when there are no partitions). It states that in case of network partitioning (P), 
-                one has to choose between availability (A) and consistency (C), but else (E), 
-                even when the system is running normally, one has to choose between latency (L) and consistency (C).
-            </p>
-            
-            <h2>Design Implications</h2>
-            
-            <h3>Choose Based on Requirements</h3>
-            <ul>
-                <li><strong>Financial systems:</strong> Often choose CP for data accuracy</li>
-                <li><strong>Social media:</strong> Typically choose AP for user experience</li>
-                <li><strong>E-commerce:</strong> May use different strategies for different data types</li>
-            </ul>
-            
-            <h3>Hybrid Approaches</h3>
-            <p>
-                Many real-world systems use hybrid approaches, applying different consistency models 
-                to different types of data based on business requirements. Critical data might use 
-                strong consistency while less critical data uses eventual consistency.
-            </p>
-            
-            <h2>Best Practices</h2>
-            <ul>
-                <li>Understand your application's consistency requirements</li>
-                <li>Design for partition tolerance from the beginning</li>
-                <li>Consider using different consistency models for different data types</li>
-                <li>Implement monitoring to detect and handle network partitions</li>
-                <li>Test your system's behavior during various failure scenarios</li>
-                <li>Document your consistency guarantees for other developers</li>
-            </ul>
-            
-            <p>
-                The CAP theorem provides a valuable framework for understanding the fundamental 
-                trade-offs in distributed systems. While it presents constraints, understanding 
-                these limitations helps architects make informed decisions about system design 
-                and choose appropriate technologies for their specific use cases.
-            </p>
         </section>
         
         <section class="content-section">
