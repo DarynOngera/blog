@@ -1,16 +1,175 @@
-<article>
-    <h2><!-- Post Title --></h2>
-    <p>$ cat your-post-title.txt<br>
-       <!-- Your introductory paragraph here. -->
-    </p>
-    <p><!-- More content here. --></p>
-    <img src="path/to/your-image.png" alt="<!-- Image description -->">
-    <video controls>
-        <source src="path/to/your-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <p><!-- Conclusion or more content. --></p>
-    <ul class="related-links">
-        <li><a href="related-post.html">Related: <!-- Related Post Title --></a></li>
-    </ul>
-</article>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[POST_TITLE] - OngeraCodex</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="system-architecture.html">System Architecture</a>
+                <a href="distributed-systems.html">Distributed Systems</a>
+                <a href="cybersecurity.html">Cybersecurity</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-section">
+            <div class="section-header">
+                <h1>[POST_TITLE]</h1>
+                <div class="post-meta">
+                    <span class="post-date">$ date -I</span>
+                    <span class="post-category">[CATEGORY]</span>
+                    <span class="read-time">[READ_TIME] min read</span>
+                </div>
+            </div>
+
+            <article class="blog-post">
+                <div class="terminal-prompt">
+                    <span class="prompt">$ cat [POST_SLUG].md</span>
+                </div>
+                
+                <div class="post-content">
+                    <p class="post-intro">
+                        [INTRODUCTION_PARAGRAPH]
+                    </p>
+
+                    <h2>[SECTION_HEADING_1]</h2>
+                    <p>
+                        [SECTION_CONTENT_1]
+                    </p>
+
+                    <!-- Code block example -->
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">[LANGUAGE]</span>
+                            <span class="code-file">[FILENAME]</span>
+                        </div>
+                        <pre><code>[CODE_CONTENT]</code></pre>
+                    </div>
+
+                    <h2>[SECTION_HEADING_2]</h2>
+                    <p>
+                        [SECTION_CONTENT_2]
+                    </p>
+
+                    <!-- Image example -->
+                    <div class="image-container">
+                        <img src="[IMAGE_PATH]" alt="[IMAGE_DESCRIPTION]" class="post-image">
+                        <p class="image-caption">[IMAGE_CAPTION]</p>
+                    </div>
+
+                    <!-- Video example (optional) -->
+                    <div class="video-container">
+                        <video controls class="post-video">
+                            <source src="[VIDEO_PATH]" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="video-caption">[VIDEO_CAPTION]</p>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        [CONCLUSION_PARAGRAPH]
+                    </p>
+
+                    <!-- Terminal output example -->
+                    <div class="terminal-output">
+                        <div class="terminal-header">
+                            <span>$ [COMMAND_EXAMPLE]</span>
+                        </div>
+                        <div class="output">
+                            [COMMAND_OUTPUT]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags section -->
+                <div class="post-tags">
+                    <h4>Tags:</h4>
+                    <span class="tag">[TAG_1]</span>
+                    <span class="tag">[TAG_2]</span>
+                    <span class="tag">[TAG_3]</span>
+                </div>
+
+                <!-- Related posts section -->
+                <div class="related-posts">
+                    <h3>Related Posts</h3>
+                    <ul class="related-links">
+                        <li><a href="[RELATED_POST_1_URL]">[RELATED_POST_1_TITLE]</a></li>
+                        <li><a href="[RELATED_POST_2_URL]">[RELATED_POST_2_TITLE]</a></li>
+                        <li><a href="[RELATED_POST_3_URL]">[RELATED_POST_3_TITLE]</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation -->
+                <div class="post-navigation">
+                    <a href="[PREV_POST_URL]" class="nav-link prev">← Previous: [PREV_POST_TITLE]</a>
+                    <a href="[NEXT_POST_URL]" class="nav-link next">Next: [NEXT_POST_TITLE] →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="projects.html">Projects</a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 OngeraCodex. All rights reserved.</p>
+                <p>Built with passion for system architecture and cybersecurity.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a nav link
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

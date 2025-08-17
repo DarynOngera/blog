@@ -10,12 +10,17 @@
 <body>
     <header>
         <div class="header-content">
-            <a href="index.html" class="logo">Daryn Ongera</a>
-            <nav>
+            <a href="index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
                 <a href="index.html">Home</a>
                 <a href="system-architecture.html">System Architecture</a>
-                <a href="cybersecurity.html">Cybersecurity</a>
                 <a href="distributed-systems.html">Distributed Systems</a>
+                <a href="cybersecurity.html">Cybersecurity</a>
                 <a href="projects.html">Projects</a>
                 <a href="about.html" class="active">About</a>
                 <a href="contact.html">Contact</a>
@@ -155,5 +160,36 @@
             <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a nav link
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
