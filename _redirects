@@ -1,0 +1,7 @@
+# Netlify redirects file
+# Handle 404 errors
+/*    /404.html   404
+
+# Optional: Redirect common patterns
+/home    /index.html    301
+/blog    /index.html    301

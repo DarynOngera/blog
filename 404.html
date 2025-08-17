@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | OngeraCodex</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">OngeraCodex</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="system-architecture.html">System Architecture</a>
+                <a href="distributed-systems.html">Distributed Systems</a>
+                <a href="cybersecurity.html">Cybersecurity</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="error-container">
+            <div class="error-content">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="terminal-title">$ whoami</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> ls -la /requested-page
+                        </div>
+                        <div class="terminal-output error-output">
+                            ls: cannot access '/requested-page': No such file or directory
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> echo "404 - Page Not Found"
+                        </div>
+                        <div class="terminal-output">
+                            404 - Page Not Found
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-message">
+                    <h1>Oops! Page Not Found</h1>
+                    <p>
+                        The page you're looking for seems to have vanished into the digital void. 
+                        It might have been moved, deleted, or perhaps it never existed in the first place.
+                    </p>
+                    <p>
+                        Don't worry though - let's get you back on track with some helpful options below.
+                    </p>
+                </div>
+
+                <div class="error-actions">
+                    <div class="action-grid">
+                        <a href="index.html" class="action-card">
+                            <div class="action-icon">🏠</div>
+                            <h3>Go Home</h3>
+                            <p>Return to the homepage and start fresh</p>
+                        </a>
+                        
+                        <a href="projects.html" class="action-card">
+                            <div class="action-icon">🚀</div>
+                            <h3>View Projects</h3>
+                            <p>Check out my latest technical projects</p>
+                        </a>
+                        
+                        <a href="system-architecture.html" class="action-card">
+                            <div class="action-icon">🏗️</div>
+                            <h3>System Architecture</h3>
+                            <p>Explore system design concepts and patterns</p>
+                        </a>
+                        
+                        <a href="cybersecurity.html" class="action-card">
+                            <div class="action-icon">🔒</div>
+                            <h3>Cybersecurity</h3>
+                            <p>Learn about security practices and threats</p>
+                        </a>
+                        
+                        <a href="distributed-systems.html" class="action-card">
+                            <div class="action-icon">🌐</div>
+                            <h3>Distributed Systems</h3>
+                            <p>Dive into distributed computing topics</p>
+                        </a>
+                        
+                        <a href="about.html" class="action-card">
+                            <div class="action-icon">👨‍💻</div>
+                            <h3>About Me</h3>
+                            <p>Get to know more about my background</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="search-suggestion">
+                    <h3>Still can't find what you're looking for?</h3>
+                    <p>Try using the navigation menu above or <a href="contact.html">contact me</a> if you think this is an error.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="projects.html">Projects</a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 OngeraCodex. All rights reserved.</p>
+                <p>Built with passion for system architecture and cybersecurity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a nav link
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Add some interactive terminal effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminalLines = document.querySelectorAll('.terminal-line');
+            terminalLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = '1';
+                }, index * 500);
+            });
+        });
+    </script>
+</body>
+</html>

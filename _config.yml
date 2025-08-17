@@ -1,0 +1,11 @@
+# GitHub Pages configuration
+plugins:
+  - jekyll-redirect-from
+
+# Custom 404 page
+permalink: pretty
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .gitignore
