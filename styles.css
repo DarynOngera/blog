@@ -1007,15 +1007,11 @@ footer {
 }
 
 .terminal-header::before {
-    content: '';
-    display: flex;
-    gap: 0.5rem;
-}
-
-.terminal-header::before {
     content: '● ● ●';
     color: #ff5f56;
     font-size: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .terminal-title {
