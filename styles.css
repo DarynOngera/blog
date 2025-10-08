@@ -1712,3 +1712,25 @@ footer {
         transform: translateY(0);
     }
 }
+
+.related-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.related-links li {
+    margin-bottom: 0.75rem;
+}
+
+.related-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.related-links a:hover {
+    color: var(--red-700);
+    text-decoration: underline;
+}
