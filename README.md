@@ -1,6 +1,6 @@
 # My Personal Blog
 
-This is my personal blog where I write about system architecture, cybersecurity, and distributed systems.
+This is my personal blog/portfolio.
 
 ## Pages
 
