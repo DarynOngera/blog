@@ -903,8 +903,9 @@ footer {
     color: #10b981;
 }
 
-.output {
-    background-color: var(--bg-secondary);
+.terminal-output .output {
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
     padding: 1rem;
     font-family: 'Courier New', monospace;
     font-size: 0.875rem;
