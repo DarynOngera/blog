@@ -1,0 +1,23 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "This is my personal blog/portfolio.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ghp_qxG0KdcRMYAi6u5DtK0GCy6S4flAsy0ocfN@github.com/DarynOngera/blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DarynOngera/blog/issues"
+  },
+  "homepage": "https://github.com/DarynOngera/blog#readme",
+  "dependencies": {
+    "js-yaml": "^4.1.1"
+  }
+}
