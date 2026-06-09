@@ -201,6 +201,7 @@
                 mobileMenuToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
                     mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
                 });
                 
                 // Close menu when clicking on a nav link
@@ -209,6 +210,7 @@
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     });
                 });
                 
@@ -217,6 +219,7 @@
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     }
                 });
             }

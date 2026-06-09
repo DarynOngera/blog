@@ -184,6 +184,7 @@ Choosing the right load balancing strategy depends on your specific requirements
                 mobileMenuToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
                     mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
                 });
                 
                 const navLinks = navMenu.querySelectorAll('a');
@@ -191,6 +192,7 @@ Choosing the right load balancing strategy depends on your specific requirements
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     });
                 });
                 
@@ -198,6 +200,7 @@ Choosing the right load balancing strategy depends on your specific requirements
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     }
                 });
             }

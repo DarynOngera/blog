@@ -1,39 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://ongera.github.io/blog/index.html</loc>
-        <lastmod>2025-08-17</lastmod>
+        <loc>https://ongeradaryn.blog/index.html</loc>
+        <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://ongera.github.io/blog/system-architecture.html</loc>
-        <lastmod>2025-08-17</lastmod>
+        <loc>https://ongeradaryn.blog/system-architecture.html</loc>
+        <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ongera.github.io/blog/cybersecurity.html</loc>
-        <lastmod>2025-08-17</lastmod>
+        <loc>https://ongeradaryn.blog/cybersecurity.html</loc>
+        <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ongera.github.io/blog/distributed-systems.html</loc>
-        <lastmod>2025-08-17</lastmod>
+        <loc>https://ongeradaryn.blog/distributed-systems.html</loc>
+        <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ongera.github.io/blog/about.html</loc>
-        <lastmod>2025-08-17</lastmod>
+        <loc>https://ongeradaryn.blog/about.html</loc>
+        <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ongera.github.io/blog/contact.html</loc>
-        <lastmod>2025-08-17</lastmod>
+        <loc>https://ongeradaryn.blog/contact.html</loc>
+        <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/projects.html</loc>
+        <lastmod>2026-06-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/current-reads.html</loc>
+        <lastmod>2026-06-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/gallery.html</loc>
+        <lastmod>2026-06-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/posts/servcore.html</loc>
+        <lastmod>Tue Jun 09 2026 03:00:00 GMT+0300 (East Africa Time)</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/posts/zero-trust-architecture.html</loc>
+        <lastmod>Wed Jan 15 2025 03:00:00 GMT+0300 (East Africa Time)</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/posts/microservices-architecture.html</loc>
+        <lastmod>Fri Jan 10 2025 03:00:00 GMT+0300 (East Africa Time)</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/posts/cap-theorem-explained.html</loc>
+        <lastmod>Sun Jan 05 2025 03:00:00 GMT+0300 (East Africa Time)</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/posts/load-balancing-strategies.html</loc>
+        <lastmod>Fri Jan 03 2025 03:00:00 GMT+0300 (East Africa Time)</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://ongeradaryn.blog/posts/event-driven-architecture.html</loc>
+        <lastmod>Fri Dec 20 2024 03:00:00 GMT+0300 (East Africa Time)</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 </urlset>

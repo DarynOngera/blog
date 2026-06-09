@@ -191,13 +191,14 @@ Microservices architecture is not a silver bullet, but when implemented correctl
                     <h3>Related Posts</h3>
                     <ul class="related-links">
                         <li><a href="event-driven-architecture.html">Event-Driven Architecture Patterns</a></li>
+                        <li><a href="servcore.html">ServCore</a></li>
                         <li><a href="load-balancing-strategies.html">Load Balancing Strategies</a></li>
                     </ul>
                 </div>
 
                 <div class="post-navigation">
                     <a href="../system-architecture.html" class="nav-link prev">← Previous: Load Balancing Strategies</a>
-                    <a href="zero-trust-architecture.html" class="nav-link next">Next: Exploring Zero Trust Architecture →</a>
+                    <a href="servcore.html" class="nav-link next">Next: ServCore →</a>
                 </div>
             </article>
         </div>
@@ -225,6 +226,7 @@ Microservices architecture is not a silver bullet, but when implemented correctl
                 mobileMenuToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
                     mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
                 });
                 
                 const navLinks = navMenu.querySelectorAll('a');
@@ -232,6 +234,7 @@ Microservices architecture is not a silver bullet, but when implemented correctl
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     });
                 });
                 
@@ -239,6 +242,7 @@ Microservices architecture is not a silver bullet, but when implemented correctl
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     }
                 });
             }

@@ -218,6 +218,7 @@ spec:
                     <h3>Related Posts</h3>
                     <ul class="related-links">
                         <li><a href="microservices-architecture.html">Understanding Microservices Architecture</a></li>
+                        <li><a href="servcore.html">ServCore</a></li>
                     </ul>
                 </div>
 
@@ -251,6 +252,7 @@ spec:
                 mobileMenuToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
                     mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
                 });
                 
                 const navLinks = navMenu.querySelectorAll('a');
@@ -258,6 +260,7 @@ spec:
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     });
                 });
                 
@@ -265,6 +268,7 @@ spec:
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     }
                 });
             }

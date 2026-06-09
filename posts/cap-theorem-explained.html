@@ -187,6 +187,7 @@ The CAP theorem provides a valuable framework for understanding the fundamental 
                 mobileMenuToggle.addEventListener('click', function() {
                     navMenu.classList.toggle('active');
                     mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
                 });
                 
                 const navLinks = navMenu.querySelectorAll('a');
@@ -194,6 +195,7 @@ The CAP theorem provides a valuable framework for understanding the fundamental 
                     link.addEventListener('click', () => {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     });
                 });
                 
@@ -201,6 +203,7 @@ The CAP theorem provides a valuable framework for understanding the fundamental 
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
                     }
                 });
             }
