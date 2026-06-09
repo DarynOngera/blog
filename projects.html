@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="A showcase of technical projects by Daryn Ongera.">
     <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
     <link rel="icon" type="image/png" href="images/icon.jpeg">
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="assets/theme.js"></script>
 </head>
@@ -62,7 +62,34 @@
            </div> -->
 
             <div class="projects-grid" id="projectsGrid">
-                <div class="project-item featured" data-tags="Cybersecurity Machine Learning Python">
+                <div class="project-item featured" data-tags="Elixir Search Engine Microservice Phoenix">
+                    <div class="project-header">
+                        <h2>SearchService</h2>
+                        <div class="project-meta">
+                            <span class="project-tag">Elixir, Search Engine, Microservice, Phoenix</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A high-performance, standalone Elixir search microservice using an inverted index with TF-IDF ranking and fuzzy matching.
+                        Optimized for 150k+ documents with sub-50ms query latency.
+                    </p>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Inverted index with TF-IDF ranking</li>
+                            <li>Fuzzy matching with Levenshtein distance</li>
+                            <li>Zero-copy reads via :persistent_term</li>
+                            <li>Sub-50ms query latency for 150k+ documents</li>
+                            <li>Load tested: 9.9M requests, 0 failures</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/DarynOngera/oracle" class="project-link">View Code</a>
+                        <a href="search-report.html" class="project-link">View Report</a>
+                    </div>
+                </div>
+
+                <div class="project-item" data-tags="Cybersecurity Machine Learning Python">
                     <div class="project-header">
                         <h2>ML-powered SOC Threat Detection Assistant</h2>
                         <div class="project-meta">
@@ -70,7 +97,7 @@
                         </div>
                     </div>
                     <p class="project-description">
-                        Leverages machine learning (LSTM-autoencoder) for anomaly-based detection of novel, signature-less attacks 
+                        Leverages machine learning (LSTM-autoencoder) for anomaly-based detection of novel, signature-less attacks
                         (e.g., 'low and slow'). Integrates NLP for contextualized threat insights. Currently in progress.
                     </p>
                     <div class="project-features">

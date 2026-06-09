@@ -22,6 +22,8 @@
     --gray-100: #f3f4f6;
     --shadow-minimal: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     --shadow-clean: 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    --success-color: #10b981;
+    --success-bg: #ecfdf5;
 }
 
 [data-theme="dark"] {
@@ -47,6 +49,8 @@
     --gray-100: #1f2937;
     --shadow-minimal: 0 1px 3px 0 rgb(0 0 0 / 0.3);
     --shadow-clean: 0 2px 4px 0 rgb(0 0 0 / 0.2);
+    --success-color: #34d399;
+    --success-bg: #064e3b;
 }
 
 * {
@@ -1954,4 +1958,91 @@ footer {
 
 .related-links a:hover {
     text-decoration: underline;
+}
+
+/* Report Page Styles */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-card.success {
+    border-color: var(--success-color);
+    background: var(--success-bg);
+}
+
+.stat-card h4 {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-card .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-card.success .metric-value {
+    color: var(--success-color);
+}
+
+.metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.metrics-table th {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.metrics-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.metrics-table tr:hover {
+    background: var(--bg-secondary);
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .metrics-table {
+        font-size: 0.8rem;
+    }
+    
+    .metrics-table th,
+    .metrics-table td {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }
