@@ -4,27 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Daryn Ongera</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta property="og:title" content="Projects - Daryn Ongera" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ongeradaryn.blog/projects.html" />
+    <meta property="og:image" content="https://ongeradaryn.blog/images/icon.jpeg" />
+    <meta property="og:description" content="A showcase of technical projects by Daryn Ongera." />
+    <meta property="og:site_name" content="Daryn Ongera" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@140ngera">
+    <meta name="twitter:creator" content="@140ngera">
+    <meta name="twitter:title" content="Projects - Daryn Ongera">
+    <meta name="twitter:description" content="A showcase of technical projects by Daryn Ongera.">
+    <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
+    <link rel="stylesheet" href="styles.css?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/theme.js"></script>
 </head>
 <body>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Daryn Ongera</a>
-            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="nav-menu">
-                <a href="index.html">Home</a>
-                <a href="system-architecture.html">System Architecture</a>
-                <a href="distributed-systems.html">Distributed Systems</a>
-                <a href="cybersecurity.html">Cybersecurity</a>
-                <a href="projects.html" class="active">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </nav>
+            <div class="header-right">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon active"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <nav class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="projects.html" class="active">Projects</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="index.html#about">About</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
         </div>
     </header>
 
@@ -35,9 +52,17 @@
                 <p>A showcase of technical projects.</p>
             </div>
 
-            <div class="projects-grid">
-                <!-- Featured Project -->
-                <div class="project-item featured">
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="Cybersecurity">Cybersecurity</button>
+                <button class="filter-btn" data-filter="Dev Tools">Dev Tools</button>
+                <button class="filter-btn" data-filter="AI/ML">AI/ML</button>
+                <button class="filter-btn" data-filter="Rust">Rust</button>
+                <button class="filter-btn" data-filter="Education">Education</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                <div class="project-item featured" data-tags="Cybersecurity Machine Learning Python">
                     <div class="project-header">
                         <h2>ML-powered SOC Threat Detection Assistant</h2>
                         <div class="project-meta">
@@ -64,8 +89,43 @@
                     </div>
                 </div>
 
-                <!-- Project 2 -->
-                <div class="project-item">
+                <div class="project-item" data-tags="Security Rust WASM">
+                    <div class="project-header">
+                        <h3>URLXpanda</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Security</span>
+                            <span class="project-tag">Rust</span>
+                            <span class="project-tag">WASM</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A multi-platform URL expansion tool built with Rust that safely expands shortened URLs and provides rich link previews with security indicators. URLXpanda is a comprehensive solution for safely expanding shortened URLs across web, mobile, browser extensions, and CLI. Built with Rust for high performance and compiled to WebAssembly for browser deployment, it features real-time threat detection, Open Graph metadata extraction, and privacy-focused client-side processing.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://urlxpanda.onrender.com/" class="project-link">Live Demo</a>
+                    </div>
+                </div>
+
+                <div class="project-item" data-tags="Dev Tools Security CLI">
+                    <div class="project-header">
+                        <h3>EnvSync</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Dev Tools</span>
+                            <span class="project-tag">Security</span>
+                            <span class="project-tag">CLI</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        EnvSync is a CLI based tool, a secure secret synchronization system for development teams.
+                        It replaces unsafe secret sharing methods with controlled access, auditability, and predictable local environment setup.
+                        It targets teams that prefer on-premise secret management.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/DarynOngera/envsync" class="project-link">View Code</a>
+                    </div>
+                </div>
+
+                <div class="project-item" data-tags="Data Processing Security Python">
                     <div class="project-header">
                         <h3>Bulk Bank Account Validator</h3>
                         <div class="project-meta">
@@ -83,8 +143,7 @@
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="project-item">
+                <div class="project-item" data-tags="AI/ML Education Multi-platform">
                     <div class="project-header">
                         <h3>TutorMtaani</h3>
                         <div class="project-meta">
@@ -101,81 +160,40 @@
                         <a href="https://github.com/DarynOngera/TutorMtaanii" class="project-link">View Code</a>
                     </div>
                 </div>
-
-                <!-- Project 4 -->
-
-                <div class="project-item">
-                    <div class="project-header">
-                        <h3>EnvSync</h3>
-                        <div class="project-meta">
-                            <span class="project-tag">Dev Tools</span>
-                            <span class="project-tag">Security</span>
-                            <span class="project-tag">CLI</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                      EnvSync is a CLI based tool, a secure secret synchronization system for development teams.
-                      It replaces unsafe secret sharing methods with controlled access, auditability, and predictable local environment setup.
-                      It targets teams that prefer on-premise secret management.                      
-                    </p>
-                    <div class="project-links">
-                        <a href="https://github.com/DarynOngera/envsync" class="project-link">View Code</a>
-                    </div>
-                </div>
             </div>
+        </div>
 
-
-                <!-- Project 5 -->
-                <div class="project-item">
-                    <div class="project-header">
-                        <h3>URLXpanda</h3>
-                        <div class="project-meta">
-                            <span class="project-tag">Secutity</span>
-                            <span class="project-tag">Rust</span>
-                            <span class="project-tag">WASM</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        A multi-platform URL expansion tool built with Rust that safely expands shortened URLs and provides rich link previews with security indicators. URLXpanda is a comprehensive solution for safely expanding shortened URLs across web, mobile, browser extensions, and CLI. Built with Rust for high performance and compiled to WebAssembly for browser deployment, it features real-time threat detection, Open Graph metadata extraction, and privacy-focused client-side processing.
-                    </p>
-                    <div class="project-links">
-                        <a href="https://urlxpanda.onrender.com/" class="project-link">Live Demo</a>
-                    </div>
-                </div>
+        <!-- Technical Skills Section -->
+        <div class="content-section">
+            <div class="section-header">
+                <h2>Technical Stack</h2>
             </div>
-
-            <!-- Technical Skills Section -->
-            <div class="content-section">
-                <div class="section-header">
-                    <h2>Technical Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-category">
+                    <h4>Programming Languages</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python (2 years)</span>
+                        <span class="tech-tag">JavaScript (2 years)</span>
+                        <span class="tech-tag">Elixir</span>
+                        <span class="tech-tag">Rust</span>
+                        <span class="tech-tag">Java</span>
+                    </div>
                 </div>
-                <div class="tech-stack">
-                    <div class="tech-category">
-                        <h4>Programming Languages</h4>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Python (2 years)</span>
-                            <span class="tech-tag">JavaScript (2 years)</span>
-                            <span class="tech-tag">Elixir</span>
-                            <span class="tech-tag">Rust</span>
-                            <span class="tech-tag">Java</span>
-                        </div>
+                <div class="tech-category">
+                    <h4>Frameworks</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Phoenix</span>
                     </div>
-                    <div class="tech-category">
-                        <h4>Frameworks</h4>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Phoenix</span>
-                        </div>
-                    </div>
-                    <div class="tech-category">
-                        <h4>Skills</h4>
-                        <div class="tech-tags">
-                            <span class="tech-tag">System Architecture</span>
-                            <span class="tech-tag">Distributed Systems</span>
-                            <span class="tech-tag">Cybersecurity</span>
-                            <span class="tech-tag">AI/ML</span>
-                            <span class="tech-tag">Software Engineering</span>
-                        </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Skills</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">System Architecture</span>
+                        <span class="tech-tag">Distributed Systems</span>
+                        <span class="tech-tag">Cybersecurity</span>
+                        <span class="tech-tag">AI/ML</span>
+                        <span class="tech-tag">Software Engineering</span>
                     </div>
                 </div>
             </div>
@@ -186,15 +204,15 @@
         <div class="footer-content">
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <a href="about.html">About</a>
                 <a href="projects.html">Projects</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#about">About</a>
                 <a href="contact.html">Contact</a>
             </div>
             <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
         </div>
     </footer>
     <script>
-        // Mobile menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
             const navMenu = document.querySelector('.nav-menu');
@@ -206,7 +224,6 @@
                     document.body.classList.toggle('menu-open');
                 });
                 
-                // Close menu when clicking on a nav link
                 const navLinks = navMenu.querySelectorAll('a');
                 navLinks.forEach(link => {
                     link.addEventListener('click', () => {
@@ -216,7 +233,6 @@
                     });
                 });
                 
-                // Close menu when clicking outside
                 document.addEventListener('click', function(event) {
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
@@ -225,6 +241,28 @@
                     }
                 });
             }
+
+            // Project filters
+            const filterBtns = document.querySelectorAll('.project-filters .filter-btn');
+            const projects = document.querySelectorAll('.project-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    projects.forEach(project => {
+                        const tags = project.getAttribute('data-tags');
+                        if (filter === 'all' || tags.includes(filter)) {
+                            project.style.display = 'block';
+                        } else {
+                            project.style.display = 'none';
+                        }
+                    });
+                });
+            });
         });
     </script>
 </body>

@@ -16,27 +16,32 @@
     <meta name="twitter:title" content="Understanding Microservices Architecture - Daryn Ongera">
     <meta name="twitter:description" content="Microservices architecture has revolutionized how we build and deploy applications at scale. By breaking down monolithic applications into smaller, independent services, organizations can achieve bett">
     <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles.css?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="../assets/theme.js"></script>
 </head>
 <body>
     <header>
         <div class="header-content">
             <a href="../index.html" class="logo">Daryn Ongera</a>
-            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="nav-menu">
-                <a href="../index.html">Home</a>
-                <a href="../system-architecture.html">System Architecture</a>
-                <a href="../distributed-systems.html">Distributed Systems</a>
-                <a href="../cybersecurity.html">Cybersecurity</a>
-                <a href="../projects.html">Projects</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-            </nav>
+            <div class="header-right">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon active"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <nav class="nav-menu">
+                    <a href="../index.html">Home</a>
+                    <a href="../projects.html">Projects</a>
+                    <a href="../blog.html">Blog</a>
+                    <a href="../index.html#about">About</a>
+                    <a href="../contact.html">Contact</a>
+                </nav>
+            </div>
         </div>
     </header>
 
@@ -191,14 +196,13 @@ Microservices architecture is not a silver bullet, but when implemented correctl
                     <h3>Related Posts</h3>
                     <ul class="related-links">
                         <li><a href="event-driven-architecture.html">Event-Driven Architecture Patterns</a></li>
-                        <li><a href="servcore.html">ServCore</a></li>
                         <li><a href="load-balancing-strategies.html">Load Balancing Strategies</a></li>
                     </ul>
                 </div>
 
                 <div class="post-navigation">
-                    <a href="../system-architecture.html" class="nav-link prev">← Previous: Load Balancing Strategies</a>
-                    <a href="servcore.html" class="nav-link next">Next: ServCore →</a>
+                    <a href="../blog.html" class="nav-link prev">← Previous: Load Balancing Strategies</a>
+                    <a href="zero-trust-architecture.html" class="nav-link next">Next: Exploring Zero Trust Architecture →</a>
                 </div>
             </article>
         </div>
@@ -208,9 +212,10 @@ Microservices architecture is not a silver bullet, but when implemented correctl
         <div class="footer-content">
             <div class="footer-links">
                 <a href="../index.html">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
                 <a href="../projects.html">Projects</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../index.html#about">About</a>
+                <a href="../contact.html">Contact</a>
             </div>
             <div class="footer-info">
                 <p>&copy; 2025 Daryn Ongera. All rights reserved.</p>
