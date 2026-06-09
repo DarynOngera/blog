@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Daryn Ongera</title>
+    <meta property="og:title" content="Blog - Daryn Ongera" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ongeradaryn.blog/blog.html" />
+    <meta property="og:image" content="https://ongeradaryn.blog/images/icon.jpeg" />
+    <meta property="og:description" content="All articles and technical writings by Daryn Ongera." />
+    <meta property="og:site_name" content="Daryn Ongera" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@140ngera">
+    <meta name="twitter:creator" content="@140ngera">
+    <meta name="twitter:title" content="Blog - Daryn Ongera">
+    <meta name="twitter:description" content="All articles and technical writings by Daryn Ongera.">
+    <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
+    <link rel="stylesheet" href="styles.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/theme.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Daryn Ongera</a>
+            <div class="header-right">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon active"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <nav class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html" class="active">Blog</a>
+                    <a href="index.html#about">About</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="section-header">
+                <h1>Blog</h1>
+            </div>
+            
+            <p class="blog-intro">
+                This blog serves as a platform to share my experiences and insights gained from working on complex systems. I believe that knowledge sharing is crucial for the growth of our tech community (In Kenya), and writing helps me crystallize my understanding of various concepts.
+            </p>
+            <p class="blog-intro">
+                Each article is written with practical applications in mind, drawing from real-world scenarios and challenges I've encountered in my professional journey.
+            </p>
+            
+            <div class="blog-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="System Design">System Design</button>
+                <button class="filter-btn" data-filter="Security">Security</button>
+                <button class="filter-btn" data-filter="Distributed Systems">Distributed Systems</button>
+            </div>
+            
+            <div class="article-list" id="articleList">
+                <article class="article-item" data-category="System Design">
+                    <div class="article-meta">
+                        <span class="article-tag">System Design</span>
+                        <span>•</span>
+                        <span>1 min read</span>
+                        <span>•</span>
+                        <span>Jun 9, 2026</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/servcore.html">ServCore</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Write your introduction here.
+                    </p>
+                    <a href="posts/servcore.html" class="read-more">Read full article</a>
+                </article>
+
+                <article class="article-item" data-category="Security">
+                    <div class="article-meta">
+                        <span class="article-tag">Security</span>
+                        <span>•</span>
+                        <span>3 min read</span>
+                        <span>•</span>
+                        <span>Jan 15, 2025</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/zero-trust-architecture.html">Exploring Zero Trust Architecture</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Zero Trust security model fundamentally changes how we approach network security. Moving away from the traditional "trust but verify" approach, Zero Trust operates on the principle of "never trust, al
+                    </p>
+                    <a href="posts/zero-trust-architecture.html" class="read-more">Read full article</a>
+                </article>
+
+                <article class="article-item" data-category="System Design">
+                    <div class="article-meta">
+                        <span class="article-tag">System Design</span>
+                        <span>•</span>
+                        <span>3 min read</span>
+                        <span>•</span>
+                        <span>Jan 10, 2025</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/microservices-architecture.html">Understanding Microservices Architecture</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Microservices architecture has revolutionized how we build and deploy applications at scale. By breaking down monolithic applications into smaller, independent services, organizations can achieve bett
+                    </p>
+                    <a href="posts/microservices-architecture.html" class="read-more">Read full article</a>
+                </article>
+
+                <article class="article-item" data-category="Distributed Systems">
+                    <div class="article-meta">
+                        <span class="article-tag">Distributed Systems</span>
+                        <span>•</span>
+                        <span>3 min read</span>
+                        <span>•</span>
+                        <span>Jan 5, 2025</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/cap-theorem-explained.html">CAP Theorem Explained</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        The CAP theorem is fundamental to understanding distributed systems. Learn about the trade-offs between Consistency, Availability, and Partition tolerance.
+                    </p>
+                    <a href="posts/cap-theorem-explained.html" class="read-more">Read full article</a>
+                </article>
+
+                <article class="article-item" data-category="Distributed Systems">
+                    <div class="article-meta">
+                        <span class="article-tag">Distributed Systems</span>
+                        <span>•</span>
+                        <span>3 min read</span>
+                        <span>•</span>
+                        <span>Jan 3, 2025</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/load-balancing-strategies.html">Load Balancing Strategies</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Explore different load balancing strategies used in distributed systems to distribute traffic efficiently across multiple servers.
+                    </p>
+                    <a href="posts/load-balancing-strategies.html" class="read-more">Read full article</a>
+                </article>
+
+                <article class="article-item" data-category="System Design">
+                    <div class="article-meta">
+                        <span class="article-tag">System Design</span>
+                        <span>•</span>
+                        <span>3 min read</span>
+                        <span>•</span>
+                        <span>Dec 20, 2024</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/event-driven-architecture.html">Event-Driven Architecture</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Explore how event-driven architecture enables loose coupling and scalability in distributed systems. Discover patterns like Event Sourcing, CQRS, and Saga.
+                    </p>
+                    <a href="posts/event-driven-architecture.html" class="read-more">Read full article</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#about">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+                
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    });
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+            }
+
+            // Blog filter
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const articles = document.querySelectorAll('.article-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    articles.forEach(article => {
+                        const category = article.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            article.style.display = 'block';
+                        } else {
+                            article.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

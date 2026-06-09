@@ -7,37 +7,19 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://ongeradaryn.blog/system-architecture.html</loc>
+        <loc>https://ongeradaryn.blog/projects.html</loc>
         <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://ongeradaryn.blog/cybersecurity.html</loc>
-        <lastmod>2026-06-09</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://ongeradaryn.blog/distributed-systems.html</loc>
-        <lastmod>2026-06-09</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://ongeradaryn.blog/about.html</loc>
+        <loc>https://ongeradaryn.blog/blog.html</loc>
         <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://ongeradaryn.blog/contact.html</loc>
-        <lastmod>2026-06-09</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://ongeradaryn.blog/projects.html</loc>
         <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -53,12 +35,6 @@
         <lastmod>2026-06-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://ongeradaryn.blog/posts/servcore.html</loc>
-        <lastmod>Tue Jun 09 2026 03:00:00 GMT+0300 (East Africa Time)</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://ongeradaryn.blog/posts/zero-trust-architecture.html</loc>

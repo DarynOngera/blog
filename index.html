@@ -3,71 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daryn Ongera - Tech Blog</title>
-    <meta property="og:title" content="Daryn Ongera - Tech Blog" />
+    <title>Daryn Ongera - Backend Engineer & Security Enthusiast</title>
+    <meta property="og:title" content="Daryn Ongera - Backend Engineer & Security Enthusiast" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ongeradaryn.blog/index.html" />
+    <meta property="og:url" content="https://ongeradaryn.blog/" />
     <meta property="og:image" content="https://ongeradaryn.blog/images/icon.jpeg" />
-    <meta property="og:description" content="Welcome to my tech blog, where I share my learning journey through documentation." />
+    <meta property="og:description" content="Building secure, scalable systems and documenting the journey." />
     <meta property="og:site_name" content="Daryn Ongera" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@140ngera">
     <meta name="twitter:creator" content="@140ngera">
-    <meta name="twitter:title" content="Daryn Ongera - Tech Blog">
-    <meta name="twitter:description" content="Welcome to my tech blog, where I share my learning journey through documentation.">
+    <meta name="twitter:title" content="Daryn Ongera - Backend Engineer & Security Enthusiast">
+    <meta name="twitter:description" content="Building secure, scalable systems and documenting the journey.">
     <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/theme.js"></script>
 </head>
 <body>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Daryn Ongera</a>
-            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="nav-menu">
-                <a href="index.html" class="active">Home</a>
-                <a href="system-architecture.html">System Architecture</a>
-                <a href="distributed-systems.html">Distributed Systems</a>
-                <a href="cybersecurity.html">Cybersecurity</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </nav>
+            <div class="header-right">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon active"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <nav class="nav-menu">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="index.html#about">About</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Tech Blog</h1>
-            <p>Welcome to my tech blog, where I share my learning journey through documentation.</p>
-            <a href="about.html" class="cta-button">Learn More About Me</a>
+        <section class="content-section" id="about">
+            <div class="section-header">
+                <h1>About Me</h1>
+            </div>
+            
+            <div class="profile-section">
+                <div>
+                    <img src="images/icon.jpeg" alt="Daryn Ongera" class="profile-image">
+                </div>
+                <div>
+                    <h2>Software Engineer and Computer Science Enthusiast</h2>
+                    <p>
+                         I am a <strong>Computer Science</strong> graduand from <strong>Strathmore University</strong>
+                         with a focus on cybersecurity, distributed systems, software development, and AI/ML.
+                         A <strong>Backend</strong> oriented dev and passionate learner, always eager to expand 
+                         my base knowledge and sharpen my skills.
+                    </p>
+                    <p>
+                         Outside of tech, I'm an avid sportsman.<strong> Primeagen</strong>
+                         fan and a proud wannabe <strong>neovim</strong> user. I will occasionally mention that I use linux,
+                         because why not?
+                    </p>
+                    <p>
+                         My defining characteristic is <strong>grit</strong>, complemented with an intense curiosity and ability 
+                         to navigate different domains and tech stacks.
+                    </p>
+                    <p>
+                        I believe that cybersecurity and traditional software development skills are
+                        essential skills to have regardless of your specific domain of interest.
+                        Join me as I strive to be a jack of all trades and a master of <strong>ONE</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Technical Expertise</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <ul class="skill-list">
+                        <li>Elixir</li>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Core Skills</h3>
+                    <ul class="skill-list">
+                        <li>System Design</li>
+                        <li>Distributed Systems</li>
+                        <li>Cybersecurity</li>
+                        <li>AI/ML</li>
+                        <li>Software Engineering</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Development Focus</h3>
+                    <ul class="skill-list">
+                        <li>Developer Tools</li>
+                        <li>Security Systems</li>
+                        <li>Machine Learning</li>
+                        <li>Systems Programming</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Coding Activity</h2>
+            </div>
+            <p class="stats-description">
+                Here's a glimpse into my development patterns and the technologies I work with most frequently.
+            </p>
+            
+            <div class="stats-carousel">
+                <div class="stats-carousel-header">
+                    <span>$ wakatime --stats --realtime --display</span>
+                </div>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <a href="https://wakatime.com" target="_blank" rel="noopener noreferrer">
+                                <img src="https://wakatime.com/share/@50b41ddf-bd05-4abf-9a01-63eeb1138150/425dc632-58c9-47eb-9bb5-a0cd4bf76294.png" 
+                                     alt="WakaTime Coding Statistics - Languages and Time Tracking" />
+                            </a>
+                        </div>
+                        <div class="carousel-slide">
+                            <a href="https://wakatime.com" target="_blank" rel="noopener noreferrer">
+                                <img src="https://wakatime.com/share/@50b41ddf-bd05-4abf-9a01-63eeb1138150/39347f53-59c4-4eaf-aa49-4ac8bb4408ee.png" 
+                                     alt="WakaTime Coding Statistics - Project Activity and Patterns" />
+                            </a>
+                        </div>
+                        <div class="carousel-slide">
+                            <a href="https://wakatime.com" target="_blank" rel="noopener noreferrer">
+                                <img src="https://wakatime.com/share/@50b41ddf-bd05-4abf-9a01-63eeb1138150/c6c3b982-3b0f-4aef-ba67-d29ace172bb2.png" 
+                                     alt="WakaTime Coding Statistics - Additional Metrics" />
+                            </a>
+                        </div>
+                    </div>
+                    <button class="carousel-nav prev" id="prevBtn" aria-label="Previous stat">&#8249;</button>
+                    <button class="carousel-nav next" id="nextBtn" aria-label="Next stat">&#8250;</button>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" data-slide="0"></div>
+                    <div class="carousel-indicator" data-slide="1"></div>
+                    <div class="carousel-indicator" data-slide="2"></div>
+                </div>
+            </div>
         </section>
 
         <section class="content-section">
             <div class="section-header">
-                <h2>Latest Articles</h2>
+                <h2>Featured Projects</h2>
             </div>
-            
-            <div class="article-list">
-                <article class="article-item">
-                    <div class="article-meta">
-                        <span class="article-tag">System Design</span>
-                        <span>•</span>
-                        <span>1 min read</span>
+            <div class="projects-grid featured-grid">
+                <div class="project-item featured">
+                    <div class="project-header">
+                        <h2>ML-powered SOC Threat Detection Assistant</h2>
+                        <div class="project-meta">
+                            <span class="project-tag">Cybersecurity</span>
+                            <span class="project-tag">Machine Learning</span>
+                            <span class="project-tag">Python</span>
+                        </div>
                     </div>
-                    <h3 class="article-title">
-                        <a href="posts/servcore.html">ServCore</a>
-                    </h3>
-                    <p class="article-excerpt">
-                        Write your introduction here.
+                    <p class="project-description">
+                        Leverages machine learning (LSTM-autoencoder) for anomaly-based detection of novel, signature-less attacks. Integrates NLP for contextualized threat insights.
                     </p>
-                    <a href="posts/servcore.html" class="read-more">Read full article</a>
-                </article>
+                    <div class="project-links">
+                        <a href="https://github.com/DarynOngera/SOC-assistant" class="project-link">View Code</a>
+                    </div>
+                </div>
 
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>URLXpanda</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Security</span>
+                            <span class="project-tag">Rust</span>
+                            <span class="project-tag">WASM</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A multi-platform URL expansion tool built with Rust that safely expands shortened URLs and provides rich link previews with security indicators.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://urlxpanda.onrender.com/" class="project-link">Live Demo</a>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3>EnvSync</h3>
+                        <div class="project-meta">
+                            <span class="project-tag">Dev Tools</span>
+                            <span class="project-tag">Security</span>
+                            <span class="project-tag">CLI</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A secure secret synchronization system for development teams. Replaces unsafe secret sharing with controlled access, auditability, and predictable local environment setup.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/DarynOngera/envsync" class="project-link">View Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="projects.html" class="read-more">View All Projects</a>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Latest Writings</h2>
+            </div>
+            <div class="article-list">
                 <article class="article-item">
                     <div class="article-meta">
                         <span class="article-tag">Security</span>
@@ -97,23 +254,41 @@
                     </p>
                     <a href="posts/microservices-architecture.html" class="read-more">Read full article</a>
                 </article>
-            </div>
 
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">Distributed Systems</span>
+                        <span>•</span>
+                        <span>3 min read</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/cap-theorem-explained.html">The CAP Theorem Explained</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        The CAP theorem, also known as Brewer's theorem, is one of the most fundamental concepts in distributed systems. It states that any distributed system can provide at most two of the following three gu
+                    </p>
+                    <a href="posts/cap-theorem-explained.html" class="read-more">Read full article</a>
+                </article>
+            </div>
+            <div class="text-center mt-3">
+                <a href="blog.html" class="read-more">Read All Articles</a>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <a href="about.html">About</a>
                 <a href="projects.html">Projects</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#about">About</a>
                 <a href="contact.html">Contact</a>
             </div>
             <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
         </div>
     </footer>
     <script>
-        // Mobile menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
             const navMenu = document.querySelector('.nav-menu');
@@ -125,7 +300,6 @@
                     document.body.classList.toggle('menu-open');
                 });
                 
-                // Close menu when clicking on a nav link
                 const navLinks = navMenu.querySelectorAll('a');
                 navLinks.forEach(link => {
                     link.addEventListener('click', () => {
@@ -135,13 +309,64 @@
                     });
                 });
                 
-                // Close menu when clicking outside
                 document.addEventListener('click', function(event) {
                     if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
                         navMenu.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
                         document.body.classList.remove('menu-open');
                     }
+                });
+            }
+
+            // WakaTime Carousel functionality
+            const carouselTrack = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            if (carouselTrack && prevBtn && nextBtn) {
+                let currentSlide = 0;
+                const totalSlides = 3;
+                
+                function updateCarousel() {
+                    const translateX = -currentSlide * 100;
+                    carouselTrack.style.transform = `translateX(${translateX}%)`;
+                    
+                    // Update indicators
+                    indicators.forEach((indicator, index) => {
+                        indicator.classList.toggle('active', index === currentSlide);
+                    });
+                }
+                
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateCarousel();
+                }
+                
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateCarousel();
+                }
+                
+                // Event listeners
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+                
+                // Indicator clicks
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentSlide = index;
+                        updateCarousel();
+                    });
+                });
+                
+                // Auto-advance carousel every 5 seconds
+                setInterval(nextSlide, 5000);
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') prevSlide();
+                    if (e.key === 'ArrowRight') nextSlide();
                 });
             }
         });

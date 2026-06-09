@@ -5,10 +5,9 @@ This is my personal blog/portfolio.
 ## Pages
 
 - [Home](https://ongeradaryn.blog/index.html)
-- [System Architecture](https://ongeradaryn.blog/system-architecture.html)
-- [Cybersecurity](https://ongeradaryn.blog/cybersecurity.html)
-- [Distributed Systems](https://ongeradaryn.blog/distributed-systems.html)
-- [About](https://ongeradaryn.blog/about.html)
+- [Projects](https://ongeradaryn.blog/projects.html)
+- [Blog](https://ongeradaryn.blog/blog.html)
+- [About](https://ongeradaryn.blog/#about)
 - [Contact](https://ongeradaryn.blog/contact.html)
 
 ## SEO
