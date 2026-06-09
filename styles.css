@@ -219,14 +219,15 @@ header {
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 30px;
-    height: 30px;
+    height: 24px;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
     z-index: 1001;
+    position: relative;
 }
 
 .hamburger-line {
@@ -237,8 +238,15 @@ header {
     transform-origin: center;
 }
 
+.mobile-menu-toggle.active .hamburger-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
 .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    transform: translateY(-50%) rotate(45deg);
 }
 
 .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
@@ -246,7 +254,7 @@ header {
 }
 
 .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: translateY(-50%) rotate(-45deg);
 }
 
 /* Mobile Navigation Styles */
