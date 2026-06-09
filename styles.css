@@ -533,6 +533,18 @@ main {
     margin-bottom: 0.5rem;
 }
 
+.dark-image {
+    display: none;
+}
+
+[data-theme="dark"] .light-image {
+    display: none;
+}
+
+[data-theme="dark"] .dark-image {
+    display: block;
+}
+
 .profile-section::after {
     content: "";
     display: table;
@@ -716,9 +728,27 @@ footer {
     }
     
     .profile-section {
-        grid-template-columns: 1fr;
-        gap: 2rem;
         text-align: center;
+    }
+    
+    .profile-image {
+        float: none;
+        display: block;
+        margin: 0 auto 2rem auto;
+        max-width: 200px;
+    }
+    
+    .dark-image {
+        display: none;
+    }
+    
+    [data-theme="dark"] .light-image {
+        display: none;
+    }
+    
+    [data-theme="dark"] .dark-image {
+        display: block;
+        margin: 0 auto 2rem auto;
     }
     
     .skills-grid {
@@ -744,9 +774,7 @@ footer {
         font-size: 1.75rem;
     }
     
-    .article-item:hover {
-        padding-left: 0.5rem;
-    }
+
 }
 
 /* Projects Page - Minimalistic */
