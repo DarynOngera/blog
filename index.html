@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Building secure, scalable systems and documenting the journey.">
     <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
     <link rel="icon" type="image/png" href="images/icon.jpeg">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="assets/theme.js"></script>
 </head>
@@ -163,6 +163,22 @@
             <div class="projects-grid featured-grid">
                 <div class="project-item featured">
                     <div class="project-header">
+                        <h2>Relic</h2>
+                        <div class="project-meta">
+                            <span class="project-tag">Databases, Bash, System Design, DDIA</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A production-grade append-only key-value database implemented in pure Bash. Seven chapters covering the core ideas from Designing Data-Intensive Applications.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/DarynOngera/relic" class="project-link">View Code</a>
+                        <a href="posts/ddia-concepts-in-bash.html" class="project-link">Read Write-up</a>
+                    </div>
+                </div>
+
+                <div class="project-item featured">
+                    <div class="project-header">
                         <h2>SearchService</h2>
                         <div class="project-meta">
                             <span class="project-tag">Elixir, Search Engine, Microservice, Phoenix</span>
@@ -232,6 +248,21 @@
                 <h2>Latest Writings</h2>
             </div>
             <div class="article-list">
+                <article class="article-item">
+                    <div class="article-meta">
+                        <span class="article-tag">System Design</span>
+                        <span>•</span>
+                        <span>15 min read</span>
+                    </div>
+                    <h3 class="article-title">
+                        <a href="posts/ddia-concepts-in-bash.html">DDIA concepts, in 800 lines of Bash</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Every idea that powers Postgres and Kafka — shown in shell script you can read without a compiler. Seven chapters covering append-only logs, WALs, compaction, checksums, concurrency, transactions, and LSM trees.
+                    </p>
+                    <a href="posts/ddia-concepts-in-bash.html" class="read-more">Read full article</a>
+                </article>
+
                 <article class="article-item">
                     <div class="article-meta">
                         <span class="article-tag">Security</span>

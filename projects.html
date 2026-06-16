@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="A showcase of technical projects by Daryn Ongera.">
     <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
     <link rel="icon" type="image/png" href="images/icon.jpeg">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="assets/theme.js"></script>
 </head>
@@ -62,6 +62,33 @@
            </div> -->
 
             <div class="projects-grid" id="projectsGrid">
+                <div class="project-item featured" data-tags="Databases Bash System Design DDIA">
+                    <div class="project-header">
+                        <h2>Relic</h2>
+                        <div class="project-meta">
+                            <span class="project-tag">Databases, Bash, System Design, DDIA</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A production-grade append-only key-value database implemented in pure Bash. Seven chapters covering the core ideas from Designing Data-Intensive Applications: append-only logs, write-ahead logs, compaction, checksums, concurrency, transactions, and LSM trees.
+                    </p>
+                    <div class="project-features">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Append-only log with SHA256 checksums</li>
+                            <li>Write-ahead log for crash recovery</li>
+                            <li>Compaction with atomic rename</li>
+                            <li>Reader/writer locks via flock</li>
+                            <li>Transactions with copy-on-write snapshots</li>
+                            <li>Log rotation and LSM-style segments</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/DarynOngera/relic" class="project-link">View Code</a>
+                        <a href="posts/ddia-concepts-in-bash.html" class="project-link">Read Write-up</a>
+                    </div>
+                </div>
+
                 <div class="project-item featured" data-tags="Elixir Search Engine Microservice Phoenix">
                     <div class="project-header">
                         <h2>SearchService</h2>
