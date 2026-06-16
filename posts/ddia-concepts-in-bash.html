@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDIA concepts, in 800 lines of Bash - Daryn Ongera</title>
+    <meta property="og:title" content="DDIA concepts, in 800 lines of Bash - Daryn Ongera" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ongeradaryn.blog/posts/ddia-concepts-in-bash.html" />
+    <meta property="og:image" content="https://ongeradaryn.blog/images/icon.jpeg" />
+    <meta property="og:description" content="Every idea that powers Postgres and Kafka — shown in shell script you can read without a compiler. Seven chapters, one concept each." />
+    <meta property="og:site_name" content="Daryn Ongera" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@140ngera">
+    <meta name="twitter:creator" content="@140ngera">
+    <meta name="twitter:title" content="DDIA concepts, in 800 lines of Bash - Daryn Ongera">
+    <meta name="twitter:description" content="Every idea that powers Postgres and Kafka — shown in shell script you can read without a compiler. Seven chapters, one concept each.">
+    <meta name="twitter:image" content="https://ongeradaryn.blog/images/icon.jpeg">
+    <link rel="icon" type="image/png" href="../images/icon.jpeg">
+    <link rel="stylesheet" href="../styles.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="../assets/theme.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">Daryn Ongera</a>
+            <div class="header-right">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon active"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <nav class="nav-menu">
+                    <a href="../index.html">Home</a>
+                    <a href="../projects.html">Projects</a>
+                    <a href="../blog.html">Blog</a>
+                    <a href="../contact.html">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-section">
+            <div class="section-header">
+                <h1>DDIA concepts, in 800 lines of Bash</h1>
+                <div class="post-meta">
+                    <span class="post-category">System Design</span>
+                    <span class="read-time">15 min read</span>
+                    <span>Jun 16, 2026</span>
+                </div>
+            </div>
+
+            <article class="blog-post">
+                <div class="terminal-prompt">
+                    <span class="prompt">$ cat ddia-concepts-in-bash.md</span>
+                </div>
+
+                <div class="post-content">
+
+                    <p class="post-intro">
+                        Every idea that powers Postgres and Kafka — shown in shell script you can read without a compiler. Seven chapters, one concept each. Each opens with the theory, shows the exact implementation, then explains what a production database does differently.
+                    </p>
+
+                    <nav class="chapter-nav" aria-label="Chapter navigation">
+                        <button class="nav-pill active" onclick="showChapter(0)">1. Append-only log</button>
+                        <button class="nav-pill" onclick="showChapter(1)">2. Write-ahead log</button>
+                        <button class="nav-pill" onclick="showChapter(2)">3. Compaction</button>
+                        <button class="nav-pill" onclick="showChapter(3)">4. Checksums</button>
+                        <button class="nav-pill" onclick="showChapter(4)">5. Concurrency</button>
+                        <button class="nav-pill" onclick="showChapter(5)">6. Transactions</button>
+                        <button class="nav-pill" onclick="showChapter(6)">7. LSM / log rotation</button>
+                    </nav>
+
+                    <!-- CHAPTER 1 -->
+                    <section class="chapter active" id="ch0" aria-label="Chapter 1: Append-only log">
+                        <h2>Chapter 1 — The append-only log</h2>
+                        <p class="chapter-desc">Why the simplest possible write strategy turns out to be one of the most powerful ideas in database design.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch0')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch0')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch0')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "The simplest possible database can be implemented with two Bash functions... db_set appends a key-value pair to the end of a file."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 3</div>
+                                </div>
+                                <p>Instead of finding where a key lives and overwriting it, an append-only log just <em>adds</em> a new record to the end of a file. Every write is a sequential disk write — no seeking, no locking of individual records, no risk of partially overwriting data.</p>
+                                <p>The tradeoff is reads: to find the latest value for a key, you scan from the end. This database stores every write as a CSV line with a timestamp and SHA256 checksum. The record format is: <code>key,"value",timestamp,checksum</code>.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        Sequential append to file, scan from end on read. O(n) reads, O(1) writes.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        Same idea — Kafka is literally this. Postgres adds a heap file with page layout for O(1) reads.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_utils.sh + src/db_ops.sh</span>
+                                    </div>
+                                    <pre><code>db_set() {
+  _db_validate_key_value "$1" "$2" || return 1
+  _db_check_flock || return 1
+
+  local record
+  record=$(_db_format_record "$1" "$2")
+
+  (
+    _db_lock_exclusive
+    _db_write_record "$record"  # append — never overwrites
+  ) 200>"${db}.lock"
+}
+
+_db_format_record() {
+  local key="$1" value="$2"
+  local timestamp payload checksum
+  timestamp=$(_db_timestamp)         # ISO-8601
+  payload="$key,\"$value\",$timestamp"  # 3-field CSV payload
+  checksum=$(_db_checksum "$payload") # SHA256
+  echo "$payload,$checksum"            # 4-field final record
+}</code></pre>
+                                </div>
+                                <p>Every write calls <code>_db_format_record</code> to build a 4-field CSV line, then appends it. No record is ever modified in place — old versions stay in the file forever until compaction removes them.</p>
+                                <p>To retrieve a value, <code>db_get</code> uses <code>awk</code> to filter lines by key, then takes the last one — the most recent write wins.</p>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_utils.sh</span>
+                                    </div>
+                                    <pre><code>_db_checksum() {
+  local payload="$1"
+  echo -n "$payload" | sha256sum | cut -d' ' -f1
+}
+
+_db_timestamp() {
+  date -Iseconds
+}</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">Apache Kafka <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">Kafka's entire architecture is an append-only log. Producers append, consumers read by offset. No deletes, no in-place updates — just sequential writes to segment files.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">LevelDB / RocksDB <span class="prod-badge">evolved form</span></div>
+                                    <div class="prod-desc">Writes go to an in-memory memtable first, then flush to immutable SSTable files on disk. Same append-only principle, but sorted keys within segments enable binary search reads.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">PostgreSQL heap + WAL <span class="prod-badge">hybrid</span></div>
+                                    <div class="prod-desc">Postgres uses an append-only WAL for durability, but also updates its heap files in-place for fast reads. Two separate write paths, two separate structures.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+                            <span class="prog-label">1 of 7</span>
+                            <button class="next-btn" onclick="showChapter(1)">Next chapter →</button>
+                        </div>
+                    </section>
+
+                    <!-- CHAPTER 2 -->
+                    <section class="chapter" id="ch1" aria-label="Chapter 2: Write-ahead log">
+                        <h2>Chapter 2 — The write-ahead log</h2>
+                        <p class="chapter-desc">How databases survive crashes mid-write — and why writing everything twice is worth the cost.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch1')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch1')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch1')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "The WAL is an append-only file to which every modification must be written before it can be applied to the data files. If the database crashes, the WAL can be replayed to bring the database back up to date."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 3</div>
+                                </div>
+                                <p>The problem: if a process dies mid-write, the main database file could be partially written and corrupt. The WAL solves this by recording your intent <em>before</em> acting on it. On startup, any data in the WAL that isn't in the main file gets replayed.</p>
+                                <p>This database writes every record to <code>db.wal</code> first, then fsyncs to make it durable. The main <code>db</code> file is only updated when you call <code>db_sync</code>. On <code>db_init</code>, leftover transaction files are cleaned up.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        Flat text WAL. Every write fsyncs individually. <code>db_sync</code> appends WAL to main file, then truncates.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        Binary WAL format, group commits, configurable fsync policy. Postgres WAL has its own streaming replication protocol built on top.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_storage.sh</span>
+                                    </div>
+                                    <pre><code>_db_append_wal() {
+  local record="$1"
+  echo "$record" >> "$db.wal"  # write to WAL first...
+  _db_fsync_wal                  # ...then fsync to disk
+  if _db_replica_enabled; then
+    _db_replica_append "$record"  # fan out to replica
+  fi
+}
+
+_db_fsync_wal() {
+  if [ "${DB_NO_FSYNC:-0}" = "1" ]; then
+    return 0  # skip for benchmarks (trade durability for speed)
+  fi
+  sync "$db.wal" 2>/dev/null || true
+}
+
+_db_sync_wal() {
+  [ ! -s "$db.wal" ] && return 0
+  cat "$db.wal" >> "$db"  # flush WAL → main database file
+  : > "$db.wal"            # truncate WAL
+  sync
+}</code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_maint.sh</span>
+                                    </div>
+                                    <pre><code>db_init() {
+  # roll back leftover transaction files from a previous crash
+  if [ -f "${db}.tx.wal" ] || [ -f "${db}.tx.snapshot" ]; then
+    db_log_warn "Found leftover tx files; rolling back incomplete transaction"
+    rm -f "${db}.tx.wal" "${db}.tx.snapshot"
+  fi
+
+  # WAL itself is replayed implicitly: _db_read_all_lines reads both
+  # $db and $db.wal on every query, so nothing explicit is needed
+}</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">PostgreSQL WAL <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">Binary WAL records with LSN (Log Sequence Numbers). Configurable <code>wal_sync_method</code>. WAL is also the basis for streaming replication — standbys replay the same WAL stream.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">SQLite WAL mode <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">Same two-file pattern (<code>.db</code> + <code>.db-wal</code>). WAL is appended first, then checkpointed to the main database file. Multiple readers can proceed concurrently with one writer during checkpointing.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">MySQL InnoDB redo log <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">Circular redo log that captures every change before it hits the InnoDB tablespace. Crash recovery replays the redo log forward, then applies the undo log to roll back uncommitted transactions.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+                            <span class="prog-label">2 of 7</span>
+                            <button class="next-btn" onclick="showChapter(2)">Next chapter →</button>
+                        </div>
+                    </section>
+
+                    <!-- CHAPTER 3 -->
+                    <section class="chapter" id="ch2" aria-label="Chapter 3: Compaction">
+                        <h2>Chapter 3 — Compaction</h2>
+                        <p class="chapter-desc">Logs grow forever. Compaction merges them down — keeping only the latest value per key, discarding tombstones and expired records.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch2')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch2')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch2')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "We can then perform compaction... throwing away duplicate keys in the log, and keeping only the most recent update for each key."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 3</div>
+                                </div>
+                                <p>An append-only log accumulates duplicate keys and tombstones (deletion markers). Over time it balloons. Compaction scans the full log, keeps only the most recent record per key, and discards deleted keys entirely.</p>
+                                <p>This is also where expired TTL records get purged. The compacted output is written to a temp file first, then atomically renamed over the original — so a crash during compaction can never corrupt the database. The WAL is cleared afterwards because all surviving records are now in the main file.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        Full scan into a Bash associative array, write survivors to tmpfile, atomic <code>mv</code>. O(n) time and O(n) space.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        RocksDB runs multi-level compaction in background threads — never blocking reads or writes. Tiered strategies optimize for write vs read amplification.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_maint.sh</span>
+                                    </div>
+                                    <pre><code>db_compact() {
+  local tmp
+  tmp=$(mktemp -p "$(dirname "$db")")
+
+  ( _db_lock_exclusive
+    declare -A latest
+
+    # pass 1: build key → latest-record map
+    while IFS= read -r line; do
+      key="${line%%,*}"
+      latest["$key"]="$line"  # later writes silently overwrite earlier ones
+    done < <(_db_read_all_lines)
+
+    # pass 2: write survivors — skip tombstones and expired TTL keys
+    for key in "${!latest[@]}"; do
+      value=$(_db_extract_value "${latest[$key]%,*}")
+      if [ "$value" != "__deleted__" ] && ! _db_is_expired "$key"; then
+        echo "${latest[$key]}" >> "$tmp"
+      fi
+    done
+
+    mv "$tmp" "$db"  # atomic rename — crash-safe
+    : > "$db.wal"      # clear WAL (all data now in main file)
+  ) 200>"${db}.lock"
+}</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">RocksDB leveled compaction <span class="prod-badge">evolved form</span></div>
+                                    <div class="prod-desc">Writes go to Level 0 (fresh SSTables). Background threads merge them into Level 1, 2... Each level is 10× the size of the one above. Compaction at each level keeps the read amplification bounded.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">Apache Cassandra compaction strategies <span class="prod-badge">evolved form</span></div>
+                                    <div class="prod-desc">SizeTiered, Leveled, TimeWindow — each optimized for a different workload. The tradeoff between read amplification (more segments to scan) and write amplification (more bytes rewritten) is identical to what this Bash code faces.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">PostgreSQL VACUUM <span class="prod-badge">related concept</span></div>
+                                    <div class="prod-desc">Postgres uses MVCC (multiple row versions in the heap) instead of an append-only log. VACUUM reclaims space from dead tuples — the same concept of "garbage collect old versions" just applied to a different storage structure.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+                            <span class="prog-label">3 of 7</span>
+                            <button class="next-btn" onclick="showChapter(3)">Next chapter →</button>
+                        </div>
+                    </section>
+
+                    <!-- CHAPTER 4 -->
+                    <section class="chapter" id="ch3" aria-label="Chapter 4: Checksums">
+                        <h2>Chapter 4 — Checksums &amp; data integrity</h2>
+                        <p class="chapter-desc">How every record is fingerprinted, and why returning a silently corrupt value is worse than crashing.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch3')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch3')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch3')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "Checksums detect corruption of data at rest and in transit... if a checksum mismatch is detected, the data is considered lost."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 1</div>
+                                </div>
+                                <p>Every record stores a SHA256 checksum of its payload. On every read, the checksum is recomputed and compared. A mismatch means the record was corrupted — by a bad disk sector, a partial write, a bug, or manual editing. The database returns an error rather than a silently wrong value.</p>
+                                <p>The checksum covers the 3-field payload (<code>key,"value",timestamp</code>) and is stored as the 4th field. This means the timestamp is part of what's checksummed — tampering with the timestamp is detectable.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        SHA256 per record via <code>sha256sum</code>. Verified on every read. Strong but slower than a CRC.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        CRC32 or xxHash per block — much faster. Verified on read or by background scrubber threads. ZFS checksums at the block device level.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_utils.sh</span>
+                                    </div>
+                                    <pre><code>_db_checksum() {
+  local payload="$1"
+  echo -n "$payload" | sha256sum | cut -d' ' -f1
+}
+
+_db_format_record() {
+  local key="$1" value="$2"
+  local timestamp payload checksum
+  timestamp=$(_db_timestamp)
+  payload="$key,\"$value\",$timestamp"   # what we checksum
+  checksum=$(_db_checksum "$payload")   # SHA256 of 3-field payload
+  echo "$payload,$checksum"              # 4-field record on disk
+}
+# result: mykey,"hello",2026-06-12T02:56:00+00:00,a3f9...</code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_ops.sh</span>
+                                    </div>
+                                    <pre><code># inside db_get, after reading the matching line:
+local payload checksum computed value
+payload="${line%,*}"     # strip last field (checksum)
+checksum="${line##*,}"  # extract last field
+computed=$(_db_checksum "$payload")
+
+if [ "$checksum" != "$computed" ]; then
+  echo "Error: checksum mismatch" >&2
+  return 1   # fail loudly — never return corrupt data
+fi</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">Apache Kafka CRC32 per message <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">Every Kafka message carries a CRC32C checksum. Brokers verify on write; consumers verify on read. Same pattern as this database, just using a faster (non-cryptographic) checksum algorithm.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">ZFS end-to-end checksums <span class="prod-badge">layer below</span></div>
+                                    <div class="prod-desc">ZFS checksums every block and can auto-heal from a RAID mirror. Production databases often rely on ZFS or similar for this rather than implementing per-record checksums — though some do both.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">PostgreSQL page checksums <span class="prod-badge">related concept</span></div>
+                                    <div class="prod-desc">Optional per-page checksums (enabled with <code>initdb --data-checksums</code>). Verified on read. Background scrubber thread can scan the whole heap. Off by default because the CPU cost is non-trivial.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+                            <span class="prog-label">4 of 7</span>
+                            <button class="next-btn" onclick="showChapter(4)">Next chapter →</button>
+                        </div>
+                    </section>
+
+                    <!-- CHAPTER 5 -->
+                    <section class="chapter" id="ch4" aria-label="Chapter 5: Concurrency">
+                        <h2>Chapter 5 — Concurrency &amp; file locking</h2>
+                        <p class="chapter-desc">How multiple readers and writers coexist without corrupting each other — using the POSIX advisory lock that ships with every Linux system.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch4')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch4')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch4')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "The database must ensure that the data remains consistent even if multiple clients are reading and writing concurrently."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 7</div>
+                                </div>
+                                <p>This database uses <code>flock</code> — POSIX advisory file locks — to coordinate access. Writers acquire an exclusive lock on a <code>.lock</code> file. Multiple readers can hold shared locks simultaneously. A writer blocks until all current readers finish; readers block while a writer holds the lock.</p>
+                                <p>The key idiom is the subshell: <code>( ... ) 200&gt;"${db}.lock"</code>. The lock file is opened on file descriptor 200, <code>flock</code> locks that fd, and when the subshell exits the fd is automatically closed — releasing the lock. No explicit unlock needed.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        File-level reader/writer lock. All readers block writers. Readers never block each other. Configurable timeout.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        MVCC (row-level snapshots). Readers never block writers and writers never block readers. Much higher concurrency at the cost of a more complex implementation.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_lock.sh</span>
+                                    </div>
+                                    <pre><code>_db_lock_exclusive() {
+  if _db_tx_active; then return 0; fi  # tx already holds the lock
+  local timeout="${DB_LOCK_TIMEOUT:-10}"
+  flock -w "$timeout" -x 200  # exclusive write lock on fd 200
+}
+
+_db_lock_shared() {
+  if _db_tx_active; then return 0; fi
+  local timeout="${DB_LOCK_TIMEOUT:-10}"
+  flock -w "$timeout" -s 200  # shared read lock on fd 200
+}
+
+# The subshell pattern — lock is held for duration of the block:
+( _db_lock_exclusive; _db_write_record "$record" ) 200>"${db}.lock"
+( _db_lock_shared;    result=$(_db_read)         ) 200>"${db}.lock"</code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">tests/integration.bats</span>
+                                    </div>
+                                    <pre><code># 5 workers, 20 increments each = exactly 100 total
+db_set "counter" "0"
+for ((w = 0; w < 5; w++)); do
+  ( for ((i = 0; i < 20; i++)); do
+      db_incr "counter" >/dev/null  # atomic read-modify-write
+    done ) &
+done
+wait
+result=$(db_get "counter")
+# result must equal 100 — never 99, never 101</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">PostgreSQL MVCC <span class="prod-badge">evolved form</span></div>
+                                    <div class="prod-desc">Postgres stores multiple versions of each row (with <code>xmin</code>/<code>xmax</code> transaction IDs). Readers see a snapshot of committed data at transaction start — no file locks needed. Readers never block writers; writers never block readers.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">SQLite WAL mode <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">SQLite's WAL mode uses the same reader/writer pattern — multiple readers, one writer. The locking is implemented with shared-memory rather than <code>flock</code>, but the semantics are identical.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">Redis single-threaded model <span class="prod-badge">alternative approach</span></div>
+                                    <div class="prod-desc">Redis avoids the concurrency problem entirely — all commands run on one thread. No locks needed. This database's subshell lock is conceptually similar: one writer at a time, serialized.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+                            <span class="prog-label">5 of 7</span>
+                            <button class="next-btn" onclick="showChapter(5)">Next chapter →</button>
+                        </div>
+                    </section>
+
+                    <!-- CHAPTER 6 -->
+                    <section class="chapter" id="ch5" aria-label="Chapter 6: Transactions">
+                        <h2>Chapter 6 — Transactions &amp; snapshot isolation</h2>
+                        <p class="chapter-desc">Copy-on-write snapshots give each transaction a consistent view of the world — the same idea behind Postgres's MVCC, built entirely from files.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch5')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch5')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch5')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "Each transaction reads from a consistent snapshot of the database — that is, the transaction sees all the data that was committed at the start of the transaction, and none of the data that was committed later."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 7</div>
+                                </div>
+                                <p>When you call <code>db_begin</code>, the current database and WAL are concatenated into a <code>.tx.snapshot</code> file. All reads during the transaction read from that frozen snapshot. Writes go to a separate <code>.tx.wal</code>.</p>
+                                <p>On <code>db_commit</code>, the transaction WAL is appended to the main WAL under an exclusive lock. On <code>db_rollback</code>, both files are deleted — the world is exactly as if nothing happened. Nested transactions are supported: the inner commit only merges at the outermost level.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        Copy-on-write snapshot file. Simple and correct. Reads are isolated; writes are serialized on commit. O(n) snapshot creation.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        MVCC stores multiple row versions in-place. No snapshot file copy needed — just record the transaction ID at start and filter rows by it on read. O(1) snapshot creation.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_tx.sh</span>
+                                    </div>
+                                    <pre><code>db_begin() {
+  if [ "$db_tx_level" -eq 0 ]; then
+    # freeze current state into an immutable snapshot file
+    cat "$db" "$db.wal" > "$(_db_tx_snapshot)" 2>/dev/null
+    : > "$(_db_tx_wal)"  # fresh tx WAL
+  fi
+  db_tx_level=$(( db_tx_level + 1 ))  # supports nesting
+}
+
+db_commit() {
+  db_tx_level=$(( db_tx_level - 1 ))
+  [ "$db_tx_level" -gt 0 ] && return 0  # inner commit — wait for outer
+
+  ( _db_lock_exclusive
+    cat "$(_db_tx_wal)" >> "$db.wal"     # merge tx WAL into main WAL
+    rm -f "$(_db_tx_wal)" "$(_db_tx_snapshot)"
+  ) 200>"${db}.lock"
+}
+
+db_rollback() {
+  rm -f "$(_db_tx_wal)" "$(_db_tx_snapshot)"  # discard everything
+  db_tx_level=0  # abort all levels
+}
+
+# reads inside a transaction go to the snapshot, not the live files:
+_db_read_key_lines_for_query() {
+  if _db_tx_active; then
+    awk -F, -v k="$1" '$1==k' "$(_db_tx_snapshot)" "$(_db_tx_wal)"
+  else
+    _db_read_key_lines "$1"
+  fi
+}</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">PostgreSQL MVCC <span class="prod-badge">same concept, better implementation</span></div>
+                                    <div class="prod-desc">Postgres stores <code>xmin</code>/<code>xmax</code> transaction IDs on every row version. Each transaction sees only rows where <code>xmin &lt;= txid &lt; xmax</code>. No snapshot file copy — just compare IDs. O(1) transaction start.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">SQLite BEGIN DEFERRED / IMMEDIATE / EXCLUSIVE <span class="prod-badge">direct equivalent</span></div>
+                                    <div class="prod-desc">SQLite's WAL mode uses a similar snapshot: readers read from a consistent point in the WAL by remembering their start position. Writes go to new WAL pages. Rollback discards the new pages.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot"></div>
+                            <span class="prog-label">6 of 7</span>
+                            <button class="next-btn" onclick="showChapter(6)">Final chapter →</button>
+                        </div>
+                    </section>
+
+                    <!-- CHAPTER 7 -->
+                    <section class="chapter" id="ch6" aria-label="Chapter 7: LSM and log rotation">
+                        <h2>Chapter 7 — LSM trees &amp; log rotation</h2>
+                        <p class="chapter-desc">When one log grows too large, segment it. Once you have multiple segment files, you have the skeleton of an LSM tree — and Cassandra starts making sense.</p>
+
+                        <div class="concept-card">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab active" role="tab" onclick="showTab(this,'ch6')">The idea</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch6')">Bash code</button>
+                                <button class="tab" role="tab" onclick="showTab(this,'ch6')">Production</button>
+                            </div>
+                            <div class="tab-panel active" role="tabpanel">
+                                <div class="ddia-quote">
+                                    "We can make a simple change to the format of our log segment files: we require that the sequence of key-value pairs is sorted by key. We call this format a Sorted String Table, or SSTable."
+                                    <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 3</div>
+                                </div>
+                                <p><code>db_truncate</code> rotates the main database file when it exceeds a size threshold — compressing the old segment with gzip and renaming it <code>db.1.gz</code>, then <code>db.2.gz</code>, and so on (up to three segments). Reads scan all segments in order from newest to oldest.</p>
+                                <p>This is a primitive LSM (Log-Structured Merge) tree: multiple immutable segment files, newest checked first. The big missing piece is sorted keys within each segment — that's what SSTables add, enabling binary search instead of full scans. But the multi-level structure is already here.</p>
+                                <div class="tradeoff-grid">
+                                    <div class="tradeoff-box t-bash">
+                                        <div class="tradeoff-label">This database</div>
+                                        Up to 3 gzip-compressed segments + active file. Reads scan all segments. O(segments × n) worst case.
+                                    </div>
+                                    <div class="tradeoff-box t-prod">
+                                        <div class="tradeoff-label">Production</div>
+                                        Sorted segments (SSTables) with Bloom filters. Binary search per segment. Reads touch O(log n) entries per segment. Background compaction merges segments continuously.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_maint.sh</span>
+                                    </div>
+                                    <pre><code>db_truncate() {
+  local max_bytes="${1:-10485760}"  # default 10 MB
+  local file_size
+  file_size=$(stat -c %s "$db")
+  [ "$file_size" -le "$max_bytes" ] && return 0  # not large enough yet
+
+  # rotate: db.2 → db.3, db.1 → db.2, db → db.1.gz
+  [ -f "${db}.2"   ] && mv "${db}.2"    "${db}.3"
+  [ -f "${db}.2.gz" ] && mv "${db}.2.gz" "${db}.3.gz"
+  [ -f "${db}.1"   ] && mv "${db}.1"    "${db}.2"
+  [ -f "${db}.1.gz" ] && mv "${db}.1.gz" "${db}.2.gz"
+  mv "$db" "${db}.1"
+  gzip -f "${db}.1"  # compress old segment
+  : > "$db"          # fresh active file
+}</code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="code-lang">bash</span>
+                                        <span class="code-file">src/db_storage.sh</span>
+                                    </div>
+                                    <pre><code>_db_segment_files() {
+  # yield older segments first so newer files win on key conflicts
+  for seg in "${db}.3" "${db}.2" "${db}.1"; do
+    [ -f "$seg"    ] && echo "$seg"
+    [ -f "$seg.gz" ] && echo "$seg.gz"
+  done
+}
+
+_db_read_key_lines() {
+  local key="$1"
+  # scan old segments, then active file and WAL
+  for seg in $(_db_segment_files); do
+    _db_cat_file "$seg" | awk -F, -v k="$key" '$1 == k'
+  done
+  awk -F, -v k="$key" '$1 == k' "$db" "$db.wal" 2>/dev/null
+}</code></pre>
+                                </div>
+                            </div>
+                            <div class="tab-panel" role="tabpanel">
+                                <div class="prod-card">
+                                    <div class="prod-name">LevelDB / RocksDB SSTables <span class="prod-badge">evolved form</span></div>
+                                    <div class="prod-desc">Segment files with keys sorted at write time. Binary search locates any key without a full scan. Bloom filters let the engine skip segments entirely if a key can't be in them. Tiered compaction merges segments across levels.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">Apache Cassandra SSTable segments <span class="prod-badge">evolved form</span></div>
+                                    <div class="prod-desc">Each memtable flush produces an immutable SSTable file — identical in concept to these <code>db.1.gz</code> segments. Compaction merges SSTables. Bloom filters and partition indexes eliminate unnecessary scans.</div>
+                                </div>
+                                <div class="prod-card">
+                                    <div class="prod-name">The missing piece: Bloom filters <span class="prod-badge">what comes next</span></div>
+                                    <div class="prod-desc">A Bloom filter is a probabilistic data structure that answers "is this key definitely not in this segment?" with zero false negatives. Production LSM engines attach one to every SSTable so reads skip non-matching segments without decompressing them.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-progress">
+                            <div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div><div class="prog-dot done"></div>
+                            <span class="prog-label">Complete</span>
+                            <button class="next-btn" onclick="showChapter(0)">↩ Back to start</button>
+                        </div>
+                    </section>
+
+                    <h2>Full source files</h2>
+                    <p>Below are the core source files from the project. The complete repo is available at <a href="https://github.com/DarynOngera/relic" target="_blank">github.com/DarynOngera/relic</a>.</p>
+
+                    <h3>src/db.sh</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <span class="code-file">src/db.sh</span>
+                        </div>
+                        <pre><code>#!/bin/bash
+
+# shellcheck shell=bash
+# Production-grade append-only key-value database in pure Bash
+# Record format: key,"value",timestamp,sha256sum
+# WAL file: db.wal (same format, flushed to db via db_sync)
+
+_db_script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# Default database file; can be overridden before sourcing or before db_init
+db=${db:-}
+
+source "$_db_script_dir/db_utils.sh"
+source "$_db_script_dir/db_lock.sh"
+source "$_db_script_dir/db_storage.sh"
+source "$_db_script_dir/db_ops.sh"
+source "$_db_script_dir/db_tx.sh"
+source "$_db_script_dir/db_maint.sh"
+source "$_db_script_dir/db_json.sh"
+source "$_db_script_dir/db_ttl.sh"
+source "$_db_script_dir/db_crypto.sh"
+source "$_db_script_dir/db_triggers.sh"
+source "$_db_script_dir/db_replica.sh"</code></pre>
+                    </div>
+
+                    <h3>src/db_ops.sh</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <span class="code-file">src/db_ops.sh (excerpt)</span>
+                        </div>
+                        <pre><code>db_set() {
+  _db_validate_key_value "$1" "$2" || return 1
+  _db_check_flock || return 1
+
+  local record
+  record=$(_db_format_record "$1" "$2")
+
+  (
+    _db_lock_exclusive
+    _db_write_record "$record"
+  ) 200>"${db}.lock"
+  _db_fire_trigger_if_user_key "set" "$1" "$2"
+
+  return 0
+}
+
+db_delete() {
+  _db_validate_key "$1" || return 1
+  _db_check_flock || return 1
+
+  local record
+  record=$(_db_format_record "$1" "__deleted__")
+
+  (
+    _db_lock_exclusive
+    _db_write_record "$record"
+  ) 200>"${db}.lock"
+  _db_fire_trigger_if_user_key "delete" "$1" "__deleted__"
+
+  return 0
+}
+
+db_get() {
+  _db_check_flock || return 1
+  _db_validate_key "$1" || return 1
+
+  (
+    _db_lock_shared
+    if [ ! -f "$db" ] && [ ! -f "$db.wal" ]; then
+      return 1
+    fi
+
+    local line payload checksum computed value
+    line=$(_db_read_key_lines_for_query "$1" | tail -n 1)
+
+    if [ -z "$line" ]; then
+      return 1
+    fi
+
+    payload="${line%,*}"
+    checksum="${line##*,}"
+    computed=$(_db_checksum "$payload")
+    if [ "$checksum" != "$computed" ]; then
+      echo "Error: checksum mismatch" >&2
+      return 1
+    fi
+
+    value=$(_db_extract_value "$payload")
+    if [ "$value" = "__deleted__" ]; then
+      return 1
+    fi
+    if _db_is_expired "$1"; then
+      return 1
+    fi
+    echo "$value"
+  ) 200>"${db}.lock"
+}</code></pre>
+                    </div>
+
+                    <h3>src/db_lock.sh</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <span class="code-file">src/db_lock.sh</span>
+                        </div>
+                        <pre><code>_db_check_flock() {
+  if ! command -v flock >/dev/null 2>&1; then
+    echo "Error: flock unavailable" >&2
+    return 1
+  fi
+  return 0
+}
+
+_db_lock_exclusive() {
+  if _db_tx_active; then
+    return 0
+  fi
+  local timeout="${DB_LOCK_TIMEOUT:-10}"
+  flock -w "$timeout" -x 200
+}
+
+_db_lock_shared() {
+  if _db_tx_active; then
+    return 0
+  fi
+  local timeout="${DB_LOCK_TIMEOUT:-10}"
+  flock -w "$timeout" -s 200
+}</code></pre>
+                    </div>
+
+                    <div class="post-tags">
+                        <h4>Tags:</h4>
+                        <span class="tag">ddia</span>
+                        <span class="tag">bash</span>
+                        <span class="tag">databases</span>
+                        <span class="tag">distributed-systems</span>
+                        <span class="tag">system-design</span>
+                    </div>
+
+                    <div class="post-navigation">
+                        <a href="zero-trust-architecture.html" class="nav-link prev">← Previous: Exploring Zero Trust Architecture</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../gallery.html" class="easter-egg">Gallery</a>
+            </div>
+            <p class="copyright">&copy; 2025 Daryn Ongera. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    });
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+            }
+        });
+
+        function showChapter(idx) {
+            document.querySelectorAll('.chapter').forEach((c, i) => c.classList.toggle('active', i === idx));
+            document.querySelectorAll('.chapter-nav .nav-pill').forEach((p, i) => p.classList.toggle('active', i === idx));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showTab(el, chId) {
+            const card = el.closest('.concept-card');
+            card.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            card.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            const idx = [...el.parentElement.children].indexOf(el);
+            card.querySelectorAll('.tab-panel')[idx].classList.add('active');
+        }
+    </script>
+</body>
+</html>
