@@ -95,8 +95,15 @@
                                     "The simplest possible database can be implemented with two Bash functions... db_set appends a key-value pair to the end of a file."
                                     <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 3</div>
                                 </div>
+                                <p>For this project append-only was the default and obvious choice for simplicity's sake</p>
                                 <p>Instead of finding where a key lives and overwriting it, an append-only log just <em>adds</em> a new record to the end of a file. Every write is a sequential disk write — no seeking, no locking of individual records, no risk of partially overwriting data.</p>
-                                <p>The tradeoff is reads: to find the latest value for a key, you scan from the end. This database stores every write as a CSV line with a timestamp and SHA256 checksum. The record format is: <code>key,"value",timestamp,checksum</code>.</p>
+                                <h3>Benefits of append-only design</h3>
+                                <p> <ul>
+                                  <li><strong>Data integrity</strong> - Existing records are not modified, audit-only logs provide a natural audit trail and make it easier to maintain data consistency acrosss distributed-systems</li>
+                                  <li><strong>Perfomance</strong> - sequential writes are faster than random access patterns</li> 
+                                  <li><strong>Simplicity</strong> - Append-only simplifies system design by eliminating update and delete operations</li>
+                                </ul></p>
+                                  <p>The tradeoff is reads: to find the latest value for a key, you scan from the end. This database stores every write as a CSV line with a timestamp and SHA256 checksum. The record format is: <code>key,"value",timestamp,checksum</code>.</p>
                                 <div class="tradeoff-grid">
                                     <div class="tradeoff-box t-bash">
                                         <div class="tradeoff-label">This database</div>
@@ -136,8 +143,8 @@ _db_format_record() {
   echo "$payload,$checksum"            # 4-field final record
 }</code></pre>
                                 </div>
-                                <p>Every write calls <code>_db_format_record</code> to build a 4-field CSV line, then appends it. No record is ever modified in place — old versions stay in the file forever until compaction removes them.</p>
-                                <p>To retrieve a value, <code>db_get</code> uses <code>awk</code> to filter lines by key, then takes the last one — the most recent write wins.</p>
+                                <p>Every write calls <code>_db_format_record</code> to build a 4-field CSV line, then appends it. No record is ever modified in place, old versions stay in the file forever until compaction removes them.</p>
+                                <p>To retrieve a value, <code>db_get</code> uses <code>awk</code> to filter lines by key, then takes the last one, the most recent write wins.</p>
                                 <div class="code-block">
                                     <div class="code-header">
                                         <span class="code-lang">bash</span>
@@ -719,7 +726,7 @@ _db_read_key_lines() {
                     </section>
 
                     <h2>Source</h2>
-                    <p>The complete repo is available at <a href="https://github.com/DarynOngera/relic" target="_blank">github.com/DarynOngera/relic</a>.</p>
+                    <p>The complete repo is available at <a href="https://github.com/DarynOngera/relic" target="_blank" class="read-more">github.com/DarynOngera/relic</a>.</p>
 
                 
                     <div class="post-tags">
