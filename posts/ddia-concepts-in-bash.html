@@ -199,6 +199,7 @@ _db_timestamp() {
                                     <div class="ddia-source">— Designing Data-Intensive Applications, Chapter 3</div>
                                 </div>
                                 <p>The problem: if a process dies mid-write, the main database file could be partially written and corrupt. The WAL solves this by recording your intent <em>before</em> acting on it. On startup, any data in the WAL that isn't in the main file gets replayed.</p>
+                                <p>Additionally, WAL significantly reduces disk writes. Only the WAL file needs to be flushed to the db after a transaction is committed. WAL also makes it possible to support <a href="https://www.postgresql.org/docs/8.1/backup-online.html" class="read-more">on-line backup and point-in-time recovery</a>.</p>
                                 <p>This database writes every record to <code>db.wal</code> first, then fsyncs to make it durable. The main <code>db</code> file is only updated when you call <code>db_sync</code>. On <code>db_init</code>, leftover transaction files are cleaned up.</p>
                                 <div class="tradeoff-grid">
                                     <div class="tradeoff-box t-bash">
